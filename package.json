@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/eobr-server"
+    "url": "https://github.com/byungklee/eobr-server"
   },
   "keywords": [
     "node",
