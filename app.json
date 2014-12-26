@@ -1,0 +1,7 @@
+{
+  "name": "EOBR server",
+  "description": "A server for research project",
+  "repository": "https://github.com/heroku/eobr-server",
+  "logo": "http://eobr-server.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static"]
+}
