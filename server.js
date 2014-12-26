@@ -10,7 +10,7 @@ function start(route) {
     var queryString = url.parse(request.url).query;
     console.log("Request " + pathname + " received.");
 
-    route(pathname, queryString);
+    //route(pathname, queryString);
 
     response.writeHead(200, {"Content-Type": "text/plain"});
     response.write("Hello World");
