@@ -4,7 +4,7 @@ var kmlGenerator = require("./kmlGenerator");
 function route(pathname, query) {
 	console.log("About to route a request for " + pathname + " " + query);
 	//var temp = querystring.parse(query)["data"];
-	var jsonObj = JSON.parse(temp);
+	var jsonObj = JSON.parse(query);
 
 	if(pathname == "/add") {
 		//console.log(querystring.parse(query)["data"]);
