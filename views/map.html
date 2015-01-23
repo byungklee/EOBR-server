@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFo5JzClLh9dPjkpp6dxMO8WWM0AcFMw4">
+    </script>
+    <script type="text/javascript">
+      // function initialize() {
+      //   var mapOptions = {
+      //     center: { lat: -34.397, lng: 150.644},
+      //     zoom: 8
+      //   };
+      //   var map = new google.maps.Map(document.getElementById('map-canvas'),
+      //       mapOptions);
+      // }
+      // google.maps.event.addDomListener(window, 'load', initialize);
+var map;
+// var myCs = [new google.maps.LatLng(55.9667,-18.5333),
+//             new google.maps.LatLng(60.9667,-18.5333),
+//             new google.maps.LatLng(65.9667,-18.5333),
+//             new google.maps.LatLng(70.9667,-18.5333),
+//             new google.maps.LatLng(75.9667,-20.5333)
+//             ];
+
+var myCs = [new google.maps.LatLng(-18.5333,55.9667),
+            new google.maps.LatLng(-18.5333,60.9667),
+            new google.maps.LatLng(-18.5333,65.9667),
+            new google.maps.LatLng(-18.5333,70.9667),
+            new google.maps.LatLng(-20.5333,75.9667)
+            ];
+var i = 0;
+function animate() {
+
+   setTimeout(function(){ 
+    map.panTo(myCs[i]);
+    i++;
+    if(i < 5 ) {
+      animate();
+    }
+   }, 3000);
+}
+
+function initialize()
+{
+  //var myC = new google.maps.LatLng(65.9667,-18.5333);
+  var myC = new google.maps.LatLng(65.9667,-18.5333);
+  var mapProp = {
+    center: myC,
+    zoom:3
+    //mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+
+ map=new google.maps.Map(document.getElementById("map-canvas"),mapProp);
+
+// marker=new google.maps.Marker({
+//   position:myCenter,
+//   animation:google.maps.Animation.BOUNCE
+//   });
+
+// marker.setMap(map);
+// //animate();
+
+
+  var ctaLayer = new google.maps.KmlLayer({
+    url: 'http://axmania.iptime.org:5555/test.kml'
+  });
+
+  ctaLayer.setMap(map);
+  //document.getElementById("markerStatus");
+  animate();
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+    </script>
+  </head>
+  <body>
+<div id="map-canvas"></div>
+  </body>
+</html>

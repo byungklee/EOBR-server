@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+src="http://maps.googleapis.com/maps/api/js">
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+<script>
+function initialize() {
+  //var chicago = new google.maps.LatLng(41.875696,-87.624207);
+  var chicago = new google.maps.LatLng(65.9667,-18.5333);
+  var mapOptions = {
+    zoom: 1,
+    center: chicago
+  }
+
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  var ctaLayer = new google.maps.KmlLayer({
+    url: 'http://axmania.iptime.org:5555/test.kml',
+    suppressInfoWindows: true,
+    map: map
+  });
+  ctaLayer.setMap(map);
+
+
+  google.maps.event.addListener(ctaLayer, 'click', function(kmlEvent) {
+    var text = kmlEvent.featureData.description;
+    showInContentWindow(text);
+  });
+
+  function showInContentWindow(text) {
+    var sidediv = document.getElementById('content-window');
+    sidediv.innerHTML =text;
+  }
+}
+
+$(document).ready(function() {
+ $("#content-window").text("testing");
+ // $.get('http://axmania.iptime.org:5555/test.kml', function(data, status) {
+ //    $("#content-window").text(data); 
+ //    alert( "Load was performed." );
+ // });
+  //alert( "Load was performed." );
+
+$.ajax({
+    url: 'test1.kml',
+    dataType: 'xml',
+    complete : function(){
+        
+    },
+    success: function(xml){
+      $("#content-window").html(xml); 
+      alert(this.url)
+    }
+});
+
+});
+
+// $(document).ready(function(){
+
+//         $.get("../test1.kml", function(data){
+
+//             html = "";
+
+//             //loop through placemarks tags
+//             $(data).find("Placemark").each(function(index, value){
+//                 //get coordinates and place name
+//                 coords = $(this).find("coordinates").text();
+//                 place = $(this).find("name").text();
+//                 //store as JSON
+//                 c = coords.split(",")
+//                 nav.push({
+//                     "place": place,
+//                     "lat": c[0],
+//                     "lng": c[1]
+//                 })
+//                 //output as a navigation
+//                 html += "<li>" + place + "</li>";
+//             })
+//             //output as a navigation
+//             // $(".navigation").append(html);
+
+//             // //bind clicks on your navigation to scroll to a placemark
+
+//             // $(".navigation li").bind("click", function(){
+
+//             //     panToPoint = new google.maps.LatLng(nav[$(this).index()].lng, nav[$(this).index()].lat)
+
+//             //     map.panTo(panToPoint);
+//             })
+
+// });
+
+
+
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+</head>
+
+<body>
+<div id="map-canvas" style="width:500px;height:380px;"></div>
+
+<div id="content-window" style="width:500px;height:380px;">
+abcdkasnd;lfknas;ldnf;lansd;lfn</div>
+</body>
+</html>

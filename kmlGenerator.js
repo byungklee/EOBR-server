@@ -1,6 +1,10 @@
 //file io
 var fs = require('fs');
 
+/** 
+ * createKML(jsonobj)
+ * Given a json object, it creates a kml file.
+ */
 function createKML(someObject) {
 	//fs.open("./kmls/tmp");
 	fs.exists('kml', function (exists) {
@@ -12,22 +16,20 @@ function createKML(someObject) {
                 "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n" +
                 "\t<Document>\n";
 		var i = 1;
-        for(var index in someObject.record) {
-            
+        for(var index in someObject.record) {            
             record = someObject.record[index];
             sb += "\t\t<Placemark>\n";
             sb += "\t\t\t<name>point" + i + "</name>\n";
             sb += "\t\t\t<description>" + record.type + "</description>\n";
-            sb += "\t\t\t<point>\n";
+            sb += "\t\t\t<Point>\n";
             sb += "\t\t\t\t<coordinates>" + record.latitude + "," + record.longitude + "</coordinates>\n";
-            sb += "\t\t\t</point>\n\t\t</Placemark>\n";
+            sb += "\t\t\t<Point>\n\t\t</Placemark>\n";
             i++;
         }
         sb += "\t</Document>\n" +
                 "</kml>\n";
         var record = someObject.record[0];
         var filename = record.truck_id + "-trip-id-" + record.trip_id + ".kml";
-
 	
 	fs.writeFile("kml/"+filename, sb, function(err) {
     if(err) {

@@ -8,7 +8,9 @@
     "express": "^4.10.6",
     "express-handlebars": "^1.1.0",
     "mongodb": "*",
-    "monk": "*"
+    "monk": "*",
+	"connect-busboy" : "*",
+	"multiparty":"*"
   },
   "devDependencies": {},
   "scripts": {

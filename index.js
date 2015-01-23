@@ -10,8 +10,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
-
-
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine','handlebars');
 
