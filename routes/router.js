@@ -21,6 +21,81 @@ router.post('/add', function(req,res) {
 	res.send('hello world');
 });
 
+/*
+  
+  Plan to Query in Mongodb.
+  1. query for type: 'start' since there is only one 'start' for each trip.
+
+  2. from their when we click any trip in UI, query for trip_id and truck_id
+  Then get all the list of corresponding trip_id and truck_id.
+
+  3.Manipulate the data however I want!
+  eg: map, statistic.
+
+*/
+router.get('/testTime', function(req,res) {
+  var db = req.db;
+  var collection = db.get('trips');
+
+  // collection.distinct('trip_id',function(err,result) {
+  //   if(err) {
+  //     res.send("error");
+  //   } else {
+  //     console.log(result);
+  //     if(result.length > 0) {
+  //       // var temp = result[0].time;
+  //       // console.log(temp);
+  //       // temp = JSON.parse(temp);
+  //       // console.log(temp.month);
+  //       //res.send("result");
+  //     } else {
+  //       //res.send("Empty");
+  //     }
+      
+      
+  //   }
+  // });
+  
+  collection.find({type:'start'},{trip_id:1,id:0, trip_type:0},function(err,result) {
+    if(err) {
+      res.send("error");
+    } else {
+      console.log(result);
+      if(result.length > 0) {
+        var temp = result[0].time;
+        console.log(temp);
+        temp = JSON.parse(temp);
+        console.log(temp.month);
+        //res.send("result");
+      } else {
+      //  res.send("Empty");
+      }
+      
+      
+    }
+
+  });
+  // obj2.toArray(function(err,doc){
+  //   console.log("priting doc");
+  //   console.log(doc);
+  // });
+
+// db.get('trips', function(err, collection) {
+//   collection.find({}, function(err, cursor) {
+//     cursor.each(function(err item) {
+//       console.log(item);
+//     });
+
+//     // our collection has returned, now we can close the database
+//     db.close();
+//   });
+// });
+ // var temp = JSON.parse(obj2.time);
+ console.log("ddc");
+ res.send("Done");
+  //res.send("");
+});
+
 /**
  * Uploads the file. 
  */
@@ -57,6 +132,8 @@ router.post('/uploadfile', function(req,res) {
 router.get('/', function(req,res) {
 	console.log("somebody default");
 });
+
+
 
 router.get('/test', function(req,res) {
 	res.send('<!DOCTYPE html>\n' +
