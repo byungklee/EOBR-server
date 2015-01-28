@@ -21,6 +21,19 @@ router.post('/add', function(req,res) {
 	res.send('hello world');
 });
 
+router.get('/print', function(req,res) {
+  var collection = req.db.get('trips');
+  collection.find({trip_id:48,{"sort":"id"}}, function(err, result) {
+    if(err) {
+      res.send("Error");
+      return;
+    }
+    console.log(result);
+    res.send("success");
+
+
+  });
+});
 /*
   
   Plan to Query in Mongodb.
@@ -36,6 +49,7 @@ router.post('/add', function(req,res) {
 router.get('/testTime', function(req,res) {
   var db = req.db;
   var collection = db.get('trips');
+
 
   // collection.distinct('trip_id',function(err,result) {
   //   if(err) {
@@ -70,27 +84,9 @@ router.get('/testTime', function(req,res) {
       } else {
       //  res.send("Empty");
       }
-      
-      
     }
-
   });
-  // obj2.toArray(function(err,doc){
-  //   console.log("priting doc");
-  //   console.log(doc);
-  // });
 
-// db.get('trips', function(err, collection) {
-//   collection.find({}, function(err, cursor) {
-//     cursor.each(function(err item) {
-//       console.log(item);
-//     });
-
-//     // our collection has returned, now we can close the database
-//     db.close();
-//   });
-// });
- // var temp = JSON.parse(obj2.time);
  console.log("ddc");
  res.send("Done");
   //res.send("");
