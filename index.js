@@ -4,6 +4,7 @@ var exphbs = require('express-handlebars');
 var app = express();
 
 var routes = require('./routes/router');
+var trips = require('./routes/trips');
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -16,7 +17,8 @@ app.set('view engine','handlebars');
 // DB SETTUP
 var mmongo = require('mongodb');
 var mon = require('monk');
-var db = mon('localhost:27017/eobrdb'); // NOTE that 27017 is default port MongoDB
+var mongo = require('mongoskin');
+var db = mongo.db('mongodb://localhost:27017/eobrdb',{native_parser:true}); // NOTE that 27017 is default port MongoDB
 
 // *** Minimal Express Server ***
 app.set('port', process.env.PORT || 8888);
@@ -31,9 +33,8 @@ app.use(function(req,res,next) {
 
 // *** ROUTITING ***
 app.use('/', routes);
+app.use('/trips', trips);
 // *** END OF ROUTING ***
-
-
 
 // custom 404 page (404 page not found error)
 app.use(function(req, res) {

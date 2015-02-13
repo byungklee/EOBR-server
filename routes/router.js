@@ -8,6 +8,10 @@ POST /add
 It receives a json type of lists of locations, and insert into a mongodb
 
 *************************************************************************/
+router.get('/', function(req,res) {
+    res.render('index')
+});
+
 router.post('/add', function(req,res) {
 	//console.log(req.body);
 	//req.body is json itself
@@ -33,7 +37,7 @@ router.get('/print', function(req,res) {
   });
 });
 
-router.get('/getTrips', function(req,res) {
+router.get('/getTrips.json', function(req,res) {
   var collection = req.db.get('trips');
   collection.find({type:'start'},{}, function(err,result) {
     if(err) {
@@ -41,8 +45,9 @@ router.get('/getTrips', function(req,res) {
       return;
     }
     console.log(result);
-    res.setHeader("Content-Type", "json");
-    res.statusCode = "200";
+
+    // res.writeHead(200, {"Content-Type": "application/json"});
+    // res.end(JSON.stringify(result));
     res.send(result);
   });
 });
