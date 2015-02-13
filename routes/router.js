@@ -18,26 +18,41 @@ router.post('/add', function(req,res) {
 	for(var i in jsonbody.record) {
 		collection.insert(jsonbody.record[i], {w:1}, function(err,result){});
 	}
-	res.send('hello world');
+	res.send('Success!');
 });
 
 router.get('/print', function(req,res) {
   var collection = req.db.get('trips');
-  collection.find({trip_id:48,{"sort":"id"}}, function(err, result) {
+  collection.find({trip_id:46},{"sort":"id"}, function(err, result) {
     if(err) {
-      res.send("Error");
+      res.send(err);
       return;
     }
     console.log(result);
-    res.send("success");
-
-
+    res.send(result);
   });
 });
+
+router.get('/getTrips', function(req,res) {
+  var collection = req.db.get('trips');
+  collection.find({type:'start'},{}, function(err,result) {
+    if(err) {
+      res.send("error");
+      return;
+    }
+    console.log(result);
+    res.send(result);
+  });
+});
+
+router.get('/getTrip', function(req,res) {
+
+});
+
 /*
   
   Plan to Query in Mongodb.
-  1. query for type: 'start' since there is only one 'start' for each trip.
+  1. Query for "type: 'start'" since there is only one 'start' for each trip.
 
   2. from their when we click any trip in UI, query for trip_id and truck_id
   Then get all the list of corresponding trip_id and truck_id.
@@ -115,7 +130,7 @@ router.post('/uploadfile', function(req,res) {
           console.log("New Path: " + newPath);
           fs.writeFile(newPath, data, function (err) {
             console.log(err);
-            console.log('uploaded');
+            console.log('not uploaded');
             
           });
          });
@@ -127,6 +142,7 @@ router.post('/uploadfile', function(req,res) {
 
 router.get('/', function(req,res) {
 	console.log("somebody default");
+	res.send('The server is running');
 });
 
 
