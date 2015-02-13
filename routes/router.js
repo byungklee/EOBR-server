@@ -41,6 +41,8 @@ router.get('/getTrips', function(req,res) {
       return;
     }
     console.log(result);
+    res.setHeader("Content-Type", "json");
+    res.statusCode = "200";
     res.send(result);
   });
 });
