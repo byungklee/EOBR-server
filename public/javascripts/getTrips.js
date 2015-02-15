@@ -15,6 +15,7 @@ function loadTripAjax(truck_id, trip_id) {
 	//alert(truck_id + " " + trip_id);
 	$.getJSON('/trips/tripDetail?truck_id=' + truck_id + '&trip_id=' + trip_id, function(data) {
 		tripData = data;
+		loadNewTrip();
 		//call map
 		//$('#map_display').html(JSON.stringify(data));
 	});
