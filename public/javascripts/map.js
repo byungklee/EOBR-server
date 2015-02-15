@@ -30,6 +30,13 @@ function setAllMap(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
   }
+
+};
+
+
+function clearMarkers() {
+  setAllMap(null);
+  markers = [];
 };
 
 function test() {
@@ -51,6 +58,7 @@ function positionsToMarkers(positions) {
 }
 
 function loadNewTrip() {
+   clearMarkers();
    positions = currentTripToPosition(tripData);
    positionsToMarkers(positions);
    setAllMap(map);
@@ -65,7 +73,7 @@ function initialize()
   var myC = new google.maps.LatLng(65.9667,-18.5333);
   var mapProp = {
     center: myC,
-    zoom:3
+    zoom:4
     //mapTypeId:google.maps.MapTypeId.ROADMAP
   };
 
