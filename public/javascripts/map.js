@@ -14,8 +14,10 @@ var animationIndex = 0;
 var animationStatus = "stop";
 
 function startAnimation() {
-  animationStatus = "run"
-  animate();
+  if(aniamtionStatus != "run") {
+    animationStatus = "run"
+    animate();
+  }
 }
 
 function animate() {
@@ -30,12 +32,15 @@ function animate() {
 }
 
 function pauseAnimation() {
-  animationStatus = "pause";
+  if(animationStatus != "pause")
+    animationStatus = "pause";
 }
 
 function stopAnimation() {
-  animationStatus = "stop";
-  animationIndex = 0;
+  if(animationStatus != "stop") {
+    animationStatus = "stop";
+    animationIndex = 0;
+  }
 }
 
 function createMarker(location, index) {
