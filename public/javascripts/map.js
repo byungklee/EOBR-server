@@ -14,7 +14,7 @@ var animationIndex = 0;
 var animationStatus = "stop";
 
 function startAnimation() {
-  if(aniamtionStatus != "run") {
+  if(animationStatus != "run") {
     animationStatus = "run"
     animate();
   }
@@ -26,7 +26,7 @@ function animate() {
     animationIndex++;
     if(animationIndex < positions.length ) {
       if(animationStatus == "run")
-        startAnimation();  
+        animate();  
     }
    }, 3000);
 }
