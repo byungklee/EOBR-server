@@ -14,19 +14,20 @@ router.get('/', function(req,res) {
 
 router.post('/add', function(req,res) {
 	//console.log(req.body);
+   var db = req.db;
 	//req.body is json itself
 	var jsonbody = req.body;
-	var db = req.db;
-	var collection = db.get('trips');
+
+	// var collection = req.db.get('trips');
 	
 	for(var i in jsonbody.record) {
-		collection.insert(jsonbody.record[i], {w:1}, function(err,result){});
+    db.collection('trips').insert(jsonbody.record[i], {w:1}, function(err,result){});
 	}
 	res.send('Success!');
 });
 
 router.get('/print', function(req,res) {
-  var collection = req.db.get('trips');
+  var collection = req.db.collection('trips');
   collection.find({trip_id:46},{"sort":"id"}, function(err, result) {
     if(err) {
       res.send(err);

@@ -10,7 +10,6 @@ var positions = [];
 var animationIndex = 0;
 
 //Status = "run", "stop", "pause"
-
 var animationStatus = "stop";
 
 function startAnimation() {
@@ -103,7 +102,6 @@ function positionsToMarkers(positions) {
   for(var i in positions) {
     //addMarker(positions[i]);
      var marker = createMarker(positions[i], i);
-     
      markers.push(marker)
   }
 }
@@ -115,7 +113,8 @@ function loadNewTrip() {
    setAllMap(map);
    
    animationIndex=0; // initializing marker index to 0 for animation
-   startAnimation();
+   animationStatus = "stop";
+   map.panTo(positions[animationIndex]);
 }
 
 function initialize()
@@ -124,27 +123,8 @@ function initialize()
   var mapProp = {
     center: myC,
     zoom: 14
-    //mapTypeId:google.maps.MapTypeId.ROADMAP
   };
-
  map=new google.maps.Map(document.getElementById("map_display"),mapProp);
-
-// marker=new google.maps.Marker({
-//   position:myCenter,
-//   animation:google.maps.Animation.BOUNCE
-//   });
-
-// marker.setMap(map);
-// //animate();
-
-
-  // var ctaLayer = new google.maps.KmlLayer({
-  // //  url: 'http://axmania.iptime.org:5555/test.kml'
-  // });
-
-  // ctaLayer.setMap(map);
-  //document.getElementById("markerStatus");
-  //animate();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
