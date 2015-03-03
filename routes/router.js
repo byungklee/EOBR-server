@@ -3,6 +3,7 @@ var busboy = require("connect-busboy");
 var multiparty = require('multiparty');
 var fs = require('fs');
 var router = express.Router();
+var dataUtil = require('../dataUtil');
 /************************************************************************
 POST /add
 It receives a json type of lists of locations, and insert into a mongodb
@@ -19,9 +20,21 @@ router.post('/add', function(req,res) {
 	var jsonbody = req.body;
 
 	// var collection = req.db.get('trips');
-	
+  var isIn = dataUtil.checkData(jsonbody.record[0]);
+  //if is in look for gateOut.
+  //if is in look for gateIn.
 	for(var i in jsonbody.record) {
-    db.collection('trips').insert(jsonbody.record[i], {w:1}, function(err,result){});
+    var temp = jsonBody.record[i];
+    if(isIn != dataUtil.checkData(temp)) {
+      if(isIn) {
+        temp.type = 'fenceIn';
+      } else {
+        temp.type = 'fenceOut';
+      }
+      isIn = !isIn;
+    }
+
+    db.collection('trips').insert(temp, {w:1}, function(err,result){});
 	}
 	res.send('Success!');
 });

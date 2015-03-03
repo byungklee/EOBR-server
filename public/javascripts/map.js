@@ -116,15 +116,33 @@ function loadNewTrip() {
    animationStatus = "stop";
    map.panTo(positions[animationIndex]);
 }
+var polygons = [];
+function setGeofence(path) {
+  var polygon = new google.maps.Polygon({
+   paths: path,
+     strokeColor: '#FF0000',
+   strokeOpacity: 1,
+   strokeWeight: 3,
+   fillColor: '#550000',
+   fillOpacity: 0.6
+  });
+  polygon.setMap(map);
+  polygons.push(polygon);
+}
+
 
 function initialize()
 {
-  var myC = new google.maps.LatLng(65.9667,-18.5333);
+  var myC = new google.maps.LatLng(33.7609627529093, -118.23950822906488);
   var mapProp = {
     center: myC,
     zoom: 14
   };
  map=new google.maps.Map(document.getElementById("map_display"),mapProp);
+  for(var i in boundaryAsGoogleMapPath) {
+      setGeofence(boundaryAsGoogleMapPath[i]);
+  }
+ 
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
