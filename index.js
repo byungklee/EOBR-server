@@ -5,6 +5,7 @@ var app = express();
 
 var routes = require('./routes/router');
 var trips = require('./routes/trips');
+var dataUtil = require('./dataUtil');
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies

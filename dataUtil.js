@@ -270,3 +270,5 @@ function pointInPolygon(listOfPoints, point)
 
     return oddNodes;
 }
+
+exports.checkData = checkData;
