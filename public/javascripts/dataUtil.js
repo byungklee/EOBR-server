@@ -200,10 +200,17 @@ createPoint(33.781617965472634, -118.11149175720209),
 createPoint(33.78850192969818, -118.11595495300287)
 ]
 
+var myHomeForTest = [
+    createPoint(33.794507112296856, -118.03254361705774),
+    createPoint(33.79469434952603, -118.03251679496759),
+    createPoint(33.794698807550326, -118.03237732009882),
+    createPoint(33.794520486398255, -118.03206618385309)
+];
+
 var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
                          tandc,john,pierF,pierG, harborScienic, 
                          harry,ferry,pico,navywayIn, navywayOut,
-                         school];
+                         school, myHomeForTest];
 
 
 var preboundary = [];

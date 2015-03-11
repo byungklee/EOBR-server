@@ -14,6 +14,9 @@ router.get('/', function(req,res) {
   res.render('index')
 });
 
+var router_isIn;
+
+
 router.post('/add', function(req,res) {
 	//console.log(req.body);
  var db = req.db;
@@ -25,21 +28,24 @@ router.post('/add', function(req,res) {
   // console.log(jsonbody.record[0]);
 
   if(jsonbody.record[0] == null) {
-   var isIn = dataUtil.checkData(jsonbody.record);
+    if(jsonbody.record.type == "start" || router_isIn == null) {
+      router_isIn = dataUtil.checkData(jsonbody.record);
+    }
+  // var isIn = dataUtil.checkData(jsonbody.record);
     //if is in look for gateOut.
     //if is in look for gateIn.
 
-    if(isIn != dataUtil.checkData(jsonbody.record)) {
-      if(isIn) {
+    if(router_isIn != dataUtil.checkData(jsonbody.record)) {
+      if(jsonbody.record.type != "start") {
+        if(router_isIn) {
 
-        jsonbody.record.type = 'fenceIn';
-      } else {
-        jsonbody.record.type = 'fenceOut';
+          jsonbody.record.type = 'fenceOut';
+        } else {
+          jsonbody.record.type = 'fenceIn';
+        }
+        router_isIn = !router_isIn;
       }
-      isIn = !isIn;
     }
-
-
     db.collection('trips').insert(jsonbody.record, {w:1}, function(err,result){});
   } else {
     var isIn = dataUtil.checkData(jsonbody.record[0]);
@@ -51,12 +57,12 @@ router.post('/add', function(req,res) {
       if(isIn != dataUtil.checkData(temp)) {
         if(isIn) {
 
-          temp.type = 'fenceIn';
-        } else {
           temp.type = 'fenceOut';
+        } else {
+          temp.type = 'fenceIn';
         }
       }
-
+      isIn = !isIn;
       db.collection('trips').insert(temp, {w:1}, function(err,result){});
     }
   }
