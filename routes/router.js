@@ -36,7 +36,7 @@ router.post('/add', function(req,res) {
     //if is in look for gateIn.
 
     if(router_isIn != dataUtil.checkData(jsonbody.record)) {
-      if(jsonbody.record.type != "start") {
+      if(sonbody.record.type == "Running") {
         if(router_isIn) {
 
           jsonbody.record.type = 'fenceOut';
@@ -55,6 +55,7 @@ router.post('/add', function(req,res) {
     if(i !== 0) {
       var temp = jsonbody.record[i];
       if(isIn != dataUtil.checkData(temp)) {
+        if(jsonbody.record.type == "Running") {
         if(isIn) {
 
           temp.type = 'fenceOut';
@@ -62,10 +63,11 @@ router.post('/add', function(req,res) {
           temp.type = 'fenceIn';
         }
       }
-      isIn = !isIn;
-      db.collection('trips').insert(temp, {w:1}, function(err,result){});
     }
+    isIn = !isIn;
+    db.collection('trips').insert(temp, {w:1}, function(err,result){});
   }
+}
 }
 res.send('Success!');
 });
