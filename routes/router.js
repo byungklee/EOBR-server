@@ -11,12 +11,12 @@ It receives a json type of lists of locations, and insert into a mongodb
 
 *************************************************************************/
 router.get('/', function(req,res) {
-    res.render('index')
+  res.render('index')
 });
 
 router.post('/add', function(req,res) {
 	//console.log(req.body);
-   var db = req.db;
+ var db = req.db;
 	//req.body is json itself
 	var jsonbody = req.body;
 
@@ -28,46 +28,45 @@ router.post('/add', function(req,res) {
    var isIn = dataUtil.checkData(jsonbody.record);
     //if is in look for gateOut.
     //if is in look for gateIn.
-   
-      if(isIn != dataUtil.checkData(jsonbody.record)) {
-        if(isIn) {
 
-          jsonbody.record.type = 'fenceIn';
-        } else {
-          jsonbody.record.type = 'fenceOut';
-        }
-        isIn = !isIn;
+    if(isIn != dataUtil.checkData(jsonbody.record)) {
+      if(isIn) {
+
+        jsonbody.record.type = 'fenceIn';
+      } else {
+        jsonbody.record.type = 'fenceOut';
       }
-      
+      isIn = !isIn;
+    }
+
 
     db.collection('trips').insert(jsonbody.record, {w:1}, function(err,result){});
   } else {
-      var isIn = dataUtil.checkData(jsonbody.record[0]);
+    var isIn = dataUtil.checkData(jsonbody.record[0]);
   //if is in look for gateOut.
   //if is in look for gateIn.
   for(var i in jsonbody.record) {
     if(i !== 0) {
-    var temp = jsonbody.record[i];
-    if(isIn != dataUtil.checkData(temp)) {
-      if(isIn) {
+      var temp = jsonbody.record[i];
+      if(isIn != dataUtil.checkData(temp)) {
+        if(isIn) {
 
-        temp.type = 'fenceIn';
-      } else {
-        temp.type = 'fenceOut';
+          temp.type = 'fenceIn';
+        } else {
+          temp.type = 'fenceOut';
+        }
       }
+
+      db.collection('trips').insert(temp, {w:1}, function(err,result){});
     }
-
-    db.collection('trips').insert(temp, {w:1}, function(err,result){});
   }
-
-  }
-  
-
-
-
-
-	res.send('Success!');
+}
+res.send('Success!');
 });
+
+function insertJson(db, json) {
+
+}
 
 router.get('/print', function(req,res) {
   var collection = req.db.collection('trips');
@@ -111,10 +110,10 @@ router.get('/getTrip', function(req,res) {
   3.Manipulate the data however I want!
   eg: map, statistic.
 
-*/
-router.get('/testTime', function(req,res) {
-  var db = req.db;
-  var collection = db.get('trips');
+  */
+  router.get('/testTime', function(req,res) {
+    var db = req.db;
+    var collection = db.get('trips');
 
 
   // collection.distinct('trip_id',function(err,result) {
@@ -131,8 +130,8 @@ router.get('/testTime', function(req,res) {
   //     } else {
   //       //res.send("Empty");
   //     }
-      
-      
+
+
   //   }
   // });
   
@@ -149,26 +148,26 @@ router.get('/testTime', function(req,res) {
         //res.send("result");
       } else {
       //  res.send("Empty");
-      }
     }
-  });
+  }
+});
 
- console.log("ddc");
- res.send("Done");
+  console.log("ddc");
+  res.send("Done");
   //res.send("");
 });
 
 /**
  * Uploads the file. 
  */
-router.post('/uploadfile', function(req,res) {
+ router.post('/uploadfile', function(req,res) {
   console.log("updating mp3 at " + __dirname);
 
   var form = new multiparty.Form();
-   form.parse(req, function(err, fields, files) {
-      console.log("Files " + files);
-      console.log("Files " + JSON.stringify(files));
-      console.log("Fields " + fields);
+  form.parse(req, function(err, fields, files) {
+    console.log("Files " + files);
+    console.log("Files " + JSON.stringify(files));
+    console.log("Fields " + fields);
       //console.log("Fields String" + JSON.stringify(fields));
       //console.log("Files2 " + files.uploadedfile[0].path);
       for(var i in files) {
@@ -184,47 +183,47 @@ router.post('/uploadfile', function(req,res) {
             console.log('not uploaded');
             
           });
-         });
-        }
+        });
+      }
       
     });
-    res.send("completed");   
+  res.send("completed");   
 });
 
-router.get('/', function(req,res) {
-	console.log("somebody default");
-	res.send('The server is running');
-});
+ router.get('/', function(req,res) {
+   console.log("somebody default");
+   res.send('The server is running');
+ });
 
 
 
-router.get('/test', function(req,res) {
-	res.send('<!DOCTYPE html>\n' +
-'<html>\n' +
-  '<head>\n'+
+ router.get('/test', function(req,res) {
+   res.send('<!DOCTYPE html>\n' +
+    '<html>\n' +
+    '<head>\n'+
     '<style type="text/css">\n'+
-      'html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}\n'+
+    'html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}\n'+
     '</style>\n'+
     '<script type="text/javascript"\n'+
-      'src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFo5JzClLh9dPjkpp6dxMO8WWM0AcFMw4">\n'+
+    'src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFo5JzClLh9dPjkpp6dxMO8WWM0AcFMw4">\n'+
     '</script>\n' +
     '<script type="text/javascript">\n'+
-      'function initialize() {\n' +
-        'var mapOptions = {\n' +
-          'center: { lat: -34.397, lng: 150.644},\n' +
-          'zoom: 8\n'+
-        '};\n'+
-        'var map = new google.maps.Map(document.getElementById(\'map-canvas\'),\n'+
-            'mapOptions);\n'+
-      '}\n'+
-      'google.maps.event.addDomListener(window, \'load\', initialize);\n'+
-    '</script>\n'+
-  '</head>\n'+
-  '<body>\n'+
-'<div id="map-canvas"></div>\n'+
-  '</body>\n'+
-'</html>\n');
-});
+    'function initialize() {\n' +
+    'var mapOptions = {\n' +
+    'center: { lat: -34.397, lng: 150.644},\n' +
+    'zoom: 8\n'+
+    '};\n'+
+    'var map = new google.maps.Map(document.getElementById(\'map-canvas\'),\n'+
+      'mapOptions);\n'+
+   '}\n'+
+   'google.maps.event.addDomListener(window, \'load\', initialize);\n'+
+   '</script>\n'+
+   '</head>\n'+
+   '<body>\n'+
+   '<div id="map-canvas"></div>\n'+
+   '</body>\n'+
+   '</html>\n');
+ });
 
 //Using KML
 router.get('/test1', function(req, res) {
