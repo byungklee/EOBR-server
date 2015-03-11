@@ -43,16 +43,52 @@ function stopAnimation() {
 }
 
 function createMarker(location, index) {
-
+ // console.log("Creating Markers: " + JSON.stringify(tripData[index]));
+  var image = pickIconImage(index);
+  console.log("image " + image);
   var marker = new google.maps.Marker({
     position: location,
-    map: map
-
+    map: map,
+    icon: image
   });
   attachMessage(marker,index);
   return marker;
   //markers.push(marker);
 };
+
+function pickIconImage(index) {
+  if(tripData[index].type == "start") {
+    return 
+      "../images/1.png";
+  } else if(tripData[index].type == "stop") {
+    return "../images/2.png";
+  } else if(tripData[index].type == "Running") {
+    return "../images/3.png";
+  } else if(tripData[index].type =="hook/unhook") {
+    return "../images/4.png"
+  } else if(tripData[index].type =="fenceIn") {
+    return "../images/5.png"
+  } else if(tripData[index].type =="fenceOut") {
+    return "../images/6.png"
+  } else if(tripData[index].type =="available") {
+    return "../images/7.png"
+  } else if(tripData[index].type =="unavailable") {
+    return "../images/8.png"
+  } else if(tripData[index].type =="dock_in") {
+    return "../images/9.png"
+  } else if(tripData[index].type =="dock_out") {
+    return "../images/10.png"
+  } else if(tripData[index].type =="waiting_for_dock") {
+    return "../images/11.png"
+  } else if(tripData[index].type =="pick_up") {
+    return "../images/12.png"
+  } else if(tripData[index].type =="deliver") {
+    return "../images/13.png"
+  } else
+     return "../images/13.png"
+
+
+}
 
 function createTripInfo(trip) {
   var tripInfo = "";
