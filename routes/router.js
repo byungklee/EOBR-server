@@ -55,8 +55,6 @@ router.post('/add', function(req,res) {
       } else {
         temp.type = 'fenceOut';
       }
-      isIn = !isIn;
-    }
     }
 
     db.collection('trips').insert(temp, {w:1}, function(err,result){});
