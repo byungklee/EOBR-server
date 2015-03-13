@@ -193,19 +193,68 @@ createPoint(33.77412701309693, -118.2399802978515),
 createPoint(33.770523988424635, -118.24013050155634)
 ];
 
-
 var school = [
 createPoint(33.78810959427681, -118.10805852966303),
 createPoint(33.78165363510723, -118.10810144500726),
 createPoint(33.781617965472634, -118.11149175720209),
-createPoint(33.785363195992744, -118.11157758789057)
+createPoint(33.78850192969818, -118.11595495300287)
 ]
 
-var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
+var myHomeForTest = [
+    createPoint(33.794507112296856, -118.03254361705774),
+    createPoint(33.79469434952603, -118.03251679496759),
+    createPoint(33.79469434952603, -118.03216274337763),
+    createPoint(33.794520486398255, -118.03206618385309)
+];
+
+var boundary = [seaSide, seaSideFwy, terminalIsland,berth,eastChan,
                          tandc,john,pierF,pierG, harborScienic, 
                          harry,ferry,pico,navywayIn, navywayOut,
-                         school
+                         school,  myHomeForTest
                          ];
+var preboundary = createPreBoundary();
+
+
+var x = 1;
+console.log(1);
+// var boundaryAsGoogleMapPath = boundaryToGooleMapBoundary(boundary);
+// console.log(boundaryAsGoogleMapPath);
+//createPreBoundary();
+console.log(preboundary);
+
+function arrayMin(arr) {
+  var len = arr.length, min = Infinity;
+  while (len--) {
+    if (Number(arr[len]) < min) {
+      min = Number(arr[len]);
+    }
+  }
+  return min;
+};
+
+function arrayMax(arr) {
+  var len = arr.length, max = -Infinity;
+  while (len--) {
+    if (Number(arr[len]) > max) {
+      max = Number(arr[len]);
+    }
+  }
+  return max;
+};
+function extractLatitudeInArray(array) {
+    var arr = [];
+    for(var i in array) {
+        arr.push(array[i].X);
+    }
+    return arr;
+}
+function extractLongitudeInArray(array) {
+var arr = [];
+    for(var i in array) {
+        arr.push(array[i].Y);
+    }
+    return arr;
+}
 
 // function pointsToGoogleMapPath(points) {
 //     var temp = [];
@@ -230,15 +279,67 @@ function createPoint(x,y) {
     return temp;
 }
 
-function checkData(data) {
+function createPreboundaryPoint(minX,maxX,minY,maxY) {
+    var temp = { minX: minX, maxX: maxX, minY: minY, maxY: maxY };
+    console.log(minX);
+    console.log(temp);
+    return temp;
+}
+function createPreBoundary() {
+  console.log("creating preboudnary");
+  var preboundary = [];
     for(var i in boundary) {
-       var isIn = pointInPolygon(boundary[i], createPoint(data.latitude, data.longitude));
-       if(isIn)
+        var lats = extractLatitudeInArray(boundary[i]);
+        var longs = extractLongitudeInArray(boundary[i]);
+        var minX = arrayMin(lats);
+        var maxX = arrayMax(lats);
+        var minY = arrayMin(longs);
+        var maxY = arrayMax(longs);
+        
+        // bound.push(createPoint(minX,minY));
+        // bound.push(createPoint(minX,maxY));
+        // bound.push(createPoint(maxX,minY));
+        // bound.push(createPoint(maxX,maxY));
+        var temp = createPreboundaryPoint(minX,maxX,minY,maxY);
+        console.log(temp);
+        preboundary.push(temp);
+    }
+    return preboundary;
+
+}
+function pointInPreBoundary(preboundary, point) {
+    if(preboundary.minX < point.X &&
+        preboundary.maxX > point.X &&
+        preboundary.minY < point.Y &&
+        preboundary.maxY > point.Y) {
         return true;
     }
     return false;
-    //return pointInPolygon()
 }
+
+
+function checkData(data) {
+    var point = createPoint(data.latitude, data.longitude);
+    for(var i in boundary) {
+       if(pointInPreBoundary(preboundary[i], point)) {
+            if(pointInPolygon(boundary[i], point))
+                return true;
+       }
+    }
+    return false;
+}
+
+
+
+// function checkData(data) {
+//     for(var i in boundary) {
+//        var isIn = pointInPolygon(boundary[i], createPoint(data.latitude, data.longitude));
+//        if(isIn)
+//         return true;
+//     }
+//     return false;
+//     //return pointInPolygon()
+// }
 
 function pointInPolygon(listOfPoints, point)
 {
@@ -270,5 +371,9 @@ function pointInPolygon(listOfPoints, point)
 
     return oddNodes;
 }
+// longitude: -118.10864411, latitude: 33.78792075 
+//longitude: -118.10809472, latitude: 33.78733681
+var xa= {longitude: -118.10864411, latitude: 33.78792075 };
 
+console.log(checkData(xa));
 exports.checkData = checkData;
