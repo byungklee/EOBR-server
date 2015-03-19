@@ -42,11 +42,11 @@ router.post('/add', function(req,res) {
       if(jsonbody.record.type == "Running") {
         console.log("Found running type with fence changed");
         if(router_isIn) {
-                  console.log("putting it to fenceout");
+          console.log("putting it to fenceout");
 
           jsonbody.record.type = 'fenceOut';
         } else {
-                  console.log("putting it to fencein");
+          console.log("putting it to fencein");
           jsonbody.record.type = 'fenceIn';
         }
         router_isIn = !router_isIn;
@@ -55,26 +55,49 @@ router.post('/add', function(req,res) {
     }
     db.collection('trips').insert(jsonbody.record, {w:1}, function(err,result){});
   } else {
+    /**
+    * Overall logic is 
+      1. insert all new updates.
+      2. retrieve from database.
+      3. make type fence to running
+      4. update database.
+    */
     console.log("chekcing multiple jsons!");
-    var isIn = dataUtil.checkData(jsonbody.record[0]);
-  //if is in look for gateOut.
-  //if is in look for gateIn.
-  for(var i in jsonbody.record) {
-    if(i !== 0) {
-      var temp = jsonbody.record[i];
-      if(isIn != dataUtil.checkData(temp)) {
-        if(jsonbody.record.type == "Running") {
-        if(isIn) {
+   // var isIn = dataUtil.checkData(jsonbody.record[0]);
 
-          temp.type = 'fenceOut';
-        } else {
-          temp.type = 'fenceIn';
+
+    for(var i in jsonbody.record) {
+      db.collection('trips').insert(jsonbody.record[i], {w:1}, function(err,result){});
+    }
+
+    var existRecord;
+    db.collection('trips').find({trip_id:jsonbody.record[0].trip_id},{"sort":"id"}).toArray(function (err,items) {
+      for(var i in items) {
+        if(items[i].type == "fenceOut" || items[i].type == "fenceIn") {
+          items[i].type = "Running";
         }
       }
-    }
-    isIn = !isIn;
-    db.collection('trips').insert(temp, {w:1}, function(err,result){});
-  }
+      existRecord = items;
+    });
+    var isIn = dataUtil.checkData(existRecord[0]);
+    for(var i in existRecord) {
+      if(i !== 0) {
+        var temp = existRecord[i];
+        if(isIn != dataUtil.checkData(temp)) {
+          if(jsonbody.record.type == "Running") {
+            if(isIn) {
+
+              temp.type = 'fenceOut';
+            } else {
+              temp.type = 'fenceIn';
+            }
+            db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+             {type:temp.type},{upsert:true});
+          }
+        }
+        isIn = !isIn;
+   // db.collection('trips').insert(temp, {w:1}, function(err,result){});
+ }
 }
 }
 res.send('Success!');
