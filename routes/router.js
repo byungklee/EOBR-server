@@ -78,29 +78,33 @@ router.post('/add', function(req,res) {
         }
       }
       existRecord = items;
-    });
-    var isIn = dataUtil.checkData(existRecord[0]);
-    for(var i in existRecord) {
-      if(i !== 0) {
-        var temp = existRecord[i];
-        if(isIn != dataUtil.checkData(temp)) {
-          if(jsonbody.record.type == "Running") {
-            if(isIn) {
+      var isIn = false;
+    if(existRecord != null) {
+      isIn = dataUtil.checkData(existRecord[0]);
+    }
+      for(var i in existRecord) {
+        if(i !== 0) {
+          var temp = existRecord[i];
+          if(isIn != dataUtil.checkData(temp)) {
+            if(jsonbody.record.type == "Running") {
+              if(isIn) {
 
-              temp.type = 'fenceOut';
-            } else {
-              temp.type = 'fenceIn';
+                temp.type = 'fenceOut';
+              } else {
+                temp.type = 'fenceIn';
+              }
+              db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+               {type:temp.type},{upsert:true});
             }
-            db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
-             {type:temp.type},{upsert:true});
           }
-        }
-        isIn = !isIn;
+          isIn = !isIn;
    // db.collection('trips').insert(temp, {w:1}, function(err,result){});
- }
-}
-}
-res.send('Success!');
+        }
+      }
+    });
+    
+    }
+  res.send('Success!');
 });
 
 function insertJson(db, json) {

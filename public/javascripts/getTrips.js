@@ -28,10 +28,10 @@ function getTripsData() {
 		tripsData = data;
 		$.each(data, function() {
 			tableContent += '<tr>';
-			tableContent += '<td>' + this.id + '</td>';
-			tableContent += '<td>' + this.truck_id + '</td>';
 			tableContent += '<td>' + this.trip_id + '</td>';
-			tableContent += '<td>' + this.time+ '</td>';
+		//	tableContent += '<td>' + this.id + '</td>';
+			tableContent += '<td>' + this.truck_id + '</td>';
+		//	tableContent += '<td>' + this.time+ '</td>';
 			tableContent += '</tr>';
 		})
 		$('#triplist_table tbody').html(tableContent);
