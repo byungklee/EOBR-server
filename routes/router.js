@@ -14,7 +14,7 @@ router.get('/', function(req,res) {
   res.render('index')
 });
 
-var router_isIn;
+var router_isIn = {};
 
 
 router.post('/add', function(req,res) {
@@ -23,25 +23,28 @@ router.post('/add', function(req,res) {
 	//req.body is json itself
 	var jsonbody = req.body;
 
-	// var collection = req.db.get('trips');
-  console.log(jsonbody.record);
-  // console.log(jsonbody.record[0]);
+  console.log(jsonbody.record); 
 
   if(jsonbody.record[0] == null) {
+    /*
+      Get truck id
+    */
+    var truck_id = jsonbody.record.truck_id;    
+
     console.log("Checking single json!");
-    console.log("current routerIs_IN " + router_isIn);
-    if(jsonbody.record.type == "start" || router_isIn == null) {
+    console.log("current routerIs_IN " + router_isIn[truck_id]);
+    if(jsonbody.record.type == "start" || router_isIn[truck_id] == null) {
       console.log("initializing router_isIn");
-      router_isIn = dataUtil.checkData(jsonbody.record);
+      router_isIn[truck_id] = dataUtil.checkData(jsonbody.record);
     }
   // var isIn = dataUtil.checkData(jsonbody.record);
     //if is in look for gateOut.
     //if is in look for gateIn.
 
-    if(router_isIn != dataUtil.checkData(jsonbody.record)) {
+    if(router_isIn[truck_id] != dataUtil.checkData(jsonbody.record)) {
       if(jsonbody.record.type == "Running") {
         console.log("Found running type with fence changed");
-        if(router_isIn) {
+        if(router_isIn[truck_id]) {
           console.log("putting it to fenceout");
 
           jsonbody.record.type = 'fenceOut';
@@ -49,7 +52,7 @@ router.post('/add', function(req,res) {
           console.log("putting it to fencein");
           jsonbody.record.type = 'fenceIn';
         }
-        router_isIn = !router_isIn;
+        router_isIn[truck_id] = !router_isIn[truck_id];
         console.log("changing router_isIn ");
       }
     }
@@ -219,11 +222,14 @@ router.get('/getTrip', function(req,res) {
         console.log("Path: " + path);
         fs.readFile(path, function (err, data) {
           // ...
-          var newPath = __dirname + '/../notes/'+obj.originalFilename;
+          var newPath = __dirname + '\\..\\notes\\'+obj.originalFilename;
+
           console.log("New Path: " + newPath);
           fs.writeFile(newPath, data, function (err) {
             console.log(err);
-            console.log('not uploaded');
+            if(err) {
+                console.log('not uploaded');
+            }
             
           });
         });
@@ -239,7 +245,9 @@ router.get('/getTrip', function(req,res) {
  });
 
 
-
+/*
+  Below are just for debugging and testing.
+*/
  router.get('/test', function(req,res) {
    res.send('<!DOCTYPE html>\n' +
     '<html>\n' +
