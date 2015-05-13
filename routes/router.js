@@ -15,6 +15,12 @@ router.get('/', function(req,res) {
 });
 
 var router_isIn;
+var DEBUG = true;
+
+function print(message) {
+  if(DEBUG == true) 
+    console.log("Debugging: " + message);
+}
 
 
 router.post('/add', function(req,res) {
@@ -55,52 +61,56 @@ router.post('/add', function(req,res) {
     }
     db.collection('trips').insert(jsonbody.record, {w:1}, function(err,result){});
   } else {
+
     /**
     * Overall logic is 
       1. insert all new updates.
       2. retrieve from database.
       3. make type fence to running
       4. update database.
-    */
-    console.log("chekcing multiple jsons!");
+      */
+      console.log("chekcing multiple jsons!");
    // var isIn = dataUtil.checkData(jsonbody.record[0]);
 
+   for(var i in jsonbody.record) {
+    db.collection('trips').insert(jsonbody.record[i], {w:1}, function(err,result){});
+  }
 
-    for(var i in jsonbody.record) {
-      db.collection('trips').insert(jsonbody.record[i], {w:1}, function(err,result){});
-    }
-
-    var existRecord;
+  var existRecord;
+    //print(existRecord);
+    print("Query by " + jsonbody.record[0].trip_id);
     db.collection('trips').find({trip_id:jsonbody.record[0].trip_id},{"sort":"id"}).toArray(function (err,items) {
       for(var i in items) {
         if(items[i].type == "fenceOut" || items[i].type == "fenceIn") {
           items[i].type = "Running";
         }
       }
-      existRecord = items;
-    });
-    var isIn = dataUtil.checkData(existRecord[0]);
-    for(var i in existRecord) {
-      if(i !== 0) {
-        var temp = existRecord[i];
-        if(isIn != dataUtil.checkData(temp)) {
-          if(jsonbody.record.type == "Running") {
-            if(isIn) {
+      print("calling trip: " + items);
 
-              temp.type = 'fenceOut';
-            } else {
-              temp.type = 'fenceIn';
+      existRecord = items;
+      var isIn = dataUtil.checkData(existRecord[0]);
+      for(var i in existRecord) {
+        if(i !== 0) {
+          var temp = existRecord[i];
+          if(isIn != dataUtil.checkData(temp)) {
+            if(jsonbody.record.type == "Running") {
+              if(isIn) {
+
+                temp.type = 'fenceOut';
+              } else {
+                temp.type = 'fenceIn';
+              }
+              db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+               {type:temp.type},{upsert:true});
             }
-            db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
-             {type:temp.type},{upsert:true});
           }
-        }
-        isIn = !isIn;
+          isIn = !isIn;
    // db.collection('trips').insert(temp, {w:1}, function(err,result){});
- }
-}
-}
-res.send('Success!');
+        }
+      }
+    });
+  }
+  res.send('Success!');
 });
 
 function insertJson(db, json) {
@@ -266,8 +276,14 @@ router.get('/test1', function(req, res) {
   console.log('loading test1');
   res.sendFile('/Users/byung/workspace/eobr-server/views/map.html');
 });
+
 router.get('/kmlsample', function(req,res) {
   res.sendFile('/Users/byung/workspace/eobr-server/views/kmlsample.html');
+});
+
+router.get('/download', function(req,res) {
+  console.log("Download app-release.apk");
+  res.sendFile('/Users/byung/workspace/eobr-server/app-release.apk');
 });
 
 // router.get('/sendKML.kml', function(req, res) {
