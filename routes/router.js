@@ -5,16 +5,11 @@ var fs = require('fs');
 var router = express.Router();
 var dataUtil = require('../dataUtil');
 
-/************************************************************************
-POST /add
-It receives a json type of lists of locations, and insert into a mongodb
-
-*************************************************************************/
 router.get('/', function(req,res) {
   res.render('index')
 });
 
-var router_isIn;
+var router_isIn = {};
 var DEBUG = true;
 
 function print(message) {
@@ -22,6 +17,22 @@ function print(message) {
     console.log("Debugging: " + message);
 }
 
+/************************************************************************
+POST /add
+It receives a json type of lists of locations, and insert into a mongodb
+
+State:
+
+if fenceIn = false;
+  1. check FenceIn -> if false, don't do anything
+  2. check FenceIn -> if true, fenceIn = true;
+
+if fenceIn = true;
+ 1.  check fenceIn-> if false, check gateIn -> if false -> fenout
+ 2. check fenceIn-> if false, check gateIn -> if true -> gateIn
+ 3. check fenceIn-> if true, don't do anything
+
+*************************************************************************/
 
 router.post('/add', function(req,res) {
 	//console.log(req.body);
@@ -34,20 +45,26 @@ router.post('/add', function(req,res) {
   // console.log(jsonbody.record[0]);
 
   if(jsonbody.record[0] == null) {
+
+    //get TRuck id;
+    var truck_id = jsonbody.record.truck_id;
+
     console.log("Checking single json!");
-    console.log("current routerIs_IN " + router_isIn);
-    if(jsonbody.record.type == "start" || router_isIn == null) {
+    console.log("current routerIs_IN " + router_isIn[truck_id]);
+
+
+    if(jsonbody.record.type == "start" || router_isIn[truck_id] == null) {
       console.log("initializing router_isIn");
-      router_isIn = dataUtil.checkData(jsonbody.record);
+      router_isIn[truck_id] = dataUtil.checkData(jsonbody.record);
     }
-  // var isIn = dataUtil.checkData(jsonbody.record);
+
     //if is in look for gateOut.
     //if is in look for gateIn.
 
-    if(router_isIn != dataUtil.checkData(jsonbody.record)) {
+    if(router_isIn[truck_id] != dataUtil.checkData(jsonbody.record)) {
       if(jsonbody.record.type == "Running") {
         console.log("Found running type with fence changed");
-        if(router_isIn) {
+        if(router_isIn[truck_id]) {
           console.log("putting it to fenceout");
 
           jsonbody.record.type = 'fenceOut';
@@ -55,7 +72,7 @@ router.post('/add', function(req,res) {
           console.log("putting it to fencein");
           jsonbody.record.type = 'fenceIn';
         }
-        router_isIn = !router_isIn;
+        router_isIn[truck_id] = !router_isIn[truck_id];
         console.log("changing router_isIn ");
       }
     }
@@ -283,7 +300,7 @@ router.get('/kmlsample', function(req,res) {
 
 router.get('/download', function(req,res) {
   console.log("Download app-release.apk");
-  res.sendFile('/Users/byung/workspace/eobr-server/app-release.apk');
+  res.sendFile('/Users/byung/AndroidstudioProjects/EOBR/app/app-release.apk');
 });
 
 // router.get('/sendKML.kml', function(req, res) {
