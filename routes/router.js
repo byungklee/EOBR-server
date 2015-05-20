@@ -23,9 +23,13 @@ It receives a json type of lists of locations, and insert into a mongodb
 
 State:
 
+<<<<<<< HEAD
 if fenceIn = false;
   1. check FenceIn -> if false, don't do anything
   2. check FenceIn -> if true, fenceIn = true;
+=======
+var router_isIn = {};
+>>>>>>> f631392278e4b8f43d8b26eb21cd348833f3dcdf
 
 if fenceIn = true;
  1.  check fenceIn-> if false, check gateIn -> if false -> fenout
@@ -40,18 +44,16 @@ router.post('/add', function(req,res) {
 	//req.body is json itself
 	var jsonbody = req.body;
 
-	// var collection = req.db.get('trips');
-  console.log(jsonbody.record);
-  // console.log(jsonbody.record[0]);
+  console.log(jsonbody.record); 
 
   if(jsonbody.record[0] == null) {
-
-    //get TRuck id;
-    var truck_id = jsonbody.record.truck_id;
+    /*
+      Get truck id
+    */
+    var truck_id = jsonbody.record.truck_id;    
 
     console.log("Checking single json!");
     console.log("current routerIs_IN " + router_isIn[truck_id]);
-
 
     if(jsonbody.record.type == "start" || router_isIn[truck_id] == null) {
       console.log("initializing router_isIn");
@@ -105,7 +107,11 @@ router.post('/add', function(req,res) {
       print("calling trip: " + items);
 
       existRecord = items;
-      var isIn = dataUtil.checkData(existRecord[0]);
+
+      var isIn = false;
+    if(existRecord != null) {
+      isIn = dataUtil.checkData(existRecord[0]);
+    }
       for(var i in existRecord) {
         if(i !== 0) {
           var temp = existRecord[i];
@@ -126,7 +132,10 @@ router.post('/add', function(req,res) {
         }
       }
     });
-  }
+
+    
+    }
+
   res.send('Success!');
 });
 
@@ -239,11 +248,14 @@ router.get('/getTrip', function(req,res) {
         console.log("Path: " + path);
         fs.readFile(path, function (err, data) {
           // ...
-          var newPath = __dirname + '/../notes/'+obj.originalFilename;
+          var newPath = __dirname + '\\..\\notes\\'+obj.originalFilename;
+
           console.log("New Path: " + newPath);
           fs.writeFile(newPath, data, function (err) {
             console.log(err);
-            console.log('not uploaded');
+            if(err) {
+                console.log('not uploaded');
+            }
             
           });
         });
@@ -259,7 +271,9 @@ router.get('/getTrip', function(req,res) {
  });
 
 
-
+/*
+  Below are just for debugging and testing.
+*/
  router.get('/test', function(req,res) {
    res.send('<!DOCTYPE html>\n' +
     '<html>\n' +
