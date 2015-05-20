@@ -134,9 +134,6 @@ router.get('/getTrips.json', function(req,res) {
       return;
     }
     console.log(result);
-
-    // res.writeHead(200, {"Content-Type": "application/json"});
-    // res.end(JSON.stringify(result));
     res.send(result);
   });
 });
