@@ -187,6 +187,16 @@ function setGeofence(path) {
 }
 
 
+//0 ~ 21
+function getNewScale(zoom) {
+
+  if(zoom <= 0 && zoom <= 12)
+    return new  google.maps.Size(3, 3);
+  else
+    return new google.maps.Size(6,6);
+}
+
+
 function initialize()
 {
   var myC = new google.maps.LatLng(33.7609627529093, -118.23950822906488);
@@ -205,18 +215,19 @@ function initialize()
   google.maps.event.addListener(map, "zoom_changed", function() {
     var zoom = map.getZoom();
     // set all markers with new size depending on zoom level.
-    // var fixedSize = 5;
-    // for(var i in markers) {
-    //   markers[i].setIcon(
-    //       new google.maps.MarkerImage(
-    //           markers[i].getIcon().url,
-    //           null, //size
-    //           null, // origin
-    //           null, // anchor
-    //           new  google.maps.Size(fixedSize + zoom*1.2, fixedSize + zoom*1.2)
-    //         )
-    //     );
-    // }
+    var fixedSize = 25;
+    //getNewScale(zoom);
+    for(var i in markers) {
+      markers[i].setIcon(
+          new google.maps.MarkerImage(
+              markers[i].getIcon().url,
+              null, //size
+              null, // origin
+              null, // anchor
+              getNewScale(zoom);
+            )
+        );
+    }
   });
  
 }
