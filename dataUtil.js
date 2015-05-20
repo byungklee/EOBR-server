@@ -1,3 +1,9 @@
+/** 
+ *   Stock Boundary
+ */
+
+
+
 
 var seaSide = [
 createPoint(33.7609627529093, -118.23950822906488),
@@ -19,15 +25,20 @@ createPoint(33.767108109780914, -118.27051002294905),
 createPoint(33.766323241142, -118.27720481665023)
 ];
 
+//PIER C BERTHS C60-C62
+//1521 Pier C St., Long Beach, CA 90813
 var pico = [
 createPoint(33.77682918216392, -118.20863355422944),
 createPoint(33.77096991553549, -118.22196658210748),
 createPoint(33.768597556637154, -118.22036798553461),
 createPoint(33.77347598272601, -118.20790199337739),
 createPoint(33.775723354301164, -118.20807365475434)
-
 ]
 
+// Berths 226-236
+// Seaside Transportation Service 
+// 389 Terminal Island Way
+// Terminal Island, CA 90731
 var ferry = [
 createPoint(33.748929421265665, -118.26956734304781),
 createPoint(33.74835848736302, -118.26523289327974),
@@ -44,6 +55,7 @@ createPoint(33.73565422488922, -118.27265724783297),
 createPoint(33.7355828473131, -118.2743738616025),
 createPoint(33.74068619433744, -118.27476009970064)
 ];
+
 var navywayIn = [
 createPoint(33.74556620899212, -118.2453661735534),
 createPoint(33.74544131262771, -118.24596698837274),
@@ -54,6 +66,7 @@ createPoint(33.72417059371614, -118.25249012069696),
 createPoint(33.72838232920512, -118.23849971847528),
 createPoint(33.73355748384227, -118.2400875862121)
 ];
+
 var navywayOut = [
 createPoint(33.72881062971061, -118.25832660751337),
 createPoint(33.72445614163633, -118.26201732711786),
@@ -65,6 +78,8 @@ createPoint(33.72834663739984, -118.23854263381952),
 createPoint(33.724027819399794, -118.25261886672968)
 ];
 
+// Long Beach Container Terminal
+// PIER F BERTHS F6-F10
 var pierF = [
 createPoint(33.762318515384784, -118.2066779907226),
 createPoint(33.7624790647841, -118.20734317855829),
@@ -78,6 +93,8 @@ createPoint(33.75156102058127, -118.20560510711664),
 createPoint(33.75470099272808, -118.2055621917724)
 ];
 
+//International Transportation Service
+//
 var pierG = [
 createPoint(33.754950758302314, -118.20431764678949),
 createPoint(33.752167615071166, -118.19856699066156),
@@ -98,6 +115,10 @@ createPoint(33.74371058714093, -118.20358808593744),
 createPoint(33.74470977312649, -118.20457513885492)
 ];
 
+
+//Pacific Container Terminal
+//PIER J BERTHS J243-J247, J266-J270
+//1521 Pier J Avenue, Long Beach, CA 90802
 var harborScienic = [
 createPoint(33.74706495117791, -118.18921144561762),
 createPoint(33.73614494411756, -118.1852632339477),
@@ -131,6 +152,11 @@ createPoint(33.761025189810205, -118.28419601776102),
 createPoint(33.765716746815684, -118.28136160504124)
 ]
 //------------------------------------------------------
+
+// Berths 302-305
+// Eagle Marine Services, Ltd.
+// 614 Terminal Way
+// Terminal Island, CA 90731
 var tandc = [
 createPoint(33.74169433712067, -118.26489265518182),
 createPoint(33.739999222998115, -118.2646351631164),
@@ -147,6 +173,11 @@ createPoint(33.74310393282772, -118.25851972656244),
 createPoint(33.74367490171187, -118.26027925567621)
 ];
 
+
+//Total Terminals International
+//PierT
+//301 Hanjin Road, Long Beach, CA 90802
+//Hanjin
 var seaSideFwy = [
 createPoint(33.76000835462108, -118.23247702795385),
 createPoint(33.76007971187001, -118.2302883453977),
@@ -175,6 +206,8 @@ createPoint(33.76444131091949, -118.2635193641662),
 createPoint(33.76012431012036, -118.26326187210077)
 ];
 
+//SSA Terminal 
+// Pier A
 var terminalIsland = [
 createPoint(33.76731324471745, -118.2394223983764),
 createPoint(33.7700602217674, -118.22691257553095),
@@ -206,6 +239,10 @@ var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
                          harry,ferry,pico,navywayIn, navywayOut,
                          school
                          ];
+
+/**
+ *  Fence In Boundary
+ */                    
 
 // function pointsToGoogleMapPath(points) {
 //     var temp = [];

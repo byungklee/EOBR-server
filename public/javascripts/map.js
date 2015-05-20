@@ -42,14 +42,29 @@ function stopAnimation() {
   }
 }
 
+
+/**
+ * Create a marker with location and index(points to tripData).
+ */
 function createMarker(location, index) {
- // console.log("Creating Markers: " + JSON.stringify(tripData[index]));
-  var image = pickIconImage(index);
+  
+  //Choose icon image depending on a type.
+  var image = new google.maps.MarkerImage(
+    pickIconImage(index),
+    new google.maps.Size(8,8), //size
+    null, //origin5
+    null, //anchor
+    new google.maps.Size(5,5) //scale
+  );
+
+
+  
   console.log("image " + image);
   var marker = new google.maps.Marker({
     position: location,
     map: map,
     icon: image
+
   });
   attachMessage(marker,index);
   return marker;
@@ -57,6 +72,8 @@ function createMarker(location, index) {
 };
 
 function pickIconImage(index) {
+
+  
   if(tripData[index].type == "start") {
     return "../images/1.png";
   } else if(tripData[index].type == "stop") {
@@ -85,8 +102,6 @@ function pickIconImage(index) {
     return "../images/13.png";
   } else
      return "../images/13.png";
-
-
 }
 
 function createTripInfo(trip) {
@@ -124,7 +139,10 @@ function clearMarkers() {
 function test() {
 
 }
-
+/**
+ *  Change current trip info to position 
+ *
+ */
 function currentTripToPosition(tripData) {
   var positions = [];
   for(var i in tripData) {
@@ -133,6 +151,9 @@ function currentTripToPosition(tripData) {
   return positions;
 }
 
+/**
+ *  Change postions to markers.
+ */
 function positionsToMarkers(positions) {
   for(var i in positions) {
     //addMarker(positions[i]);
@@ -173,10 +194,30 @@ function initialize()
     center: myC,
     zoom: 14
   };
- map=new google.maps.Map(document.getElementById("map_display"),mapProp);
+  map=new google.maps.Map(document.getElementById("map_display"),mapProp);
   for(var i in boundaryAsGoogleMapPath) {
       setGeofence(boundaryAsGoogleMapPath[i]);
   }
+
+  /**
+   * Adding a listener for zoom changes so that markers can be resized.
+   */
+  google.maps.event.addListener(map, "zoom_changed", function() {
+    var zoom = map.getZoom();
+    // set all markers with new size depending on zoom level.
+    // var fixedSize = 5;
+    // for(var i in markers) {
+    //   markers[i].setIcon(
+    //       new google.maps.MarkerImage(
+    //           markers[i].getIcon().url,
+    //           null, //size
+    //           null, // origin
+    //           null, // anchor
+    //           new  google.maps.Size(fixedSize + zoom*1.2, fixedSize + zoom*1.2)
+    //         )
+    //     );
+    // }
+  });
  
 }
 
