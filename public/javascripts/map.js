@@ -54,7 +54,7 @@ function createMarker(location, index) {
     new google.maps.Size(8,8), //size
     null, //origin5
     null, //anchor
-    new google.maps.Size(5,5) //scale
+    new google.maps.Size(3,3) //scale
   );
 
 
@@ -190,10 +190,12 @@ function setGeofence(path) {
 //0 ~ 21
 function getNewScale(zoom) {
 
-  if(zoom <= 0 && zoom <= 12)
-    return new  google.maps.Size(3, 3);
+  if(zoom >= 0 && zoom <= 8)
+    return new  google.maps.Size(2, 2);
+  else if(zoom >=9 & zoom <=14)
+    return new google.maps.Size(5, 5);
   else
-    return new google.maps.Size(6,6);
+    return new google.maps.Size(7, 7);
 }
 
 
@@ -224,7 +226,7 @@ function initialize()
               null, //size
               null, // origin
               null, // anchor
-              getNewScale(zoom);
+              getNewScale(zoom)
             )
         );
     }
