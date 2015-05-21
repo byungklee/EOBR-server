@@ -172,6 +172,7 @@ function loadNewTrip() {
    animationStatus = "stop";
    map.panTo(positions[animationIndex]);
 }
+
 var polygons = [];
 function setGeofence(path) {
   var polygon = new google.maps.Polygon({
@@ -186,10 +187,23 @@ function setGeofence(path) {
   polygons.push(polygon);
 }
 
+var fences = [];
+function setFence(path) {
+  var polygon = new google.maps.Polygon({
+   paths: path,
+     strokeColor: '#00FF00',
+   strokeOpacity: 1,
+   strokeWeight: 3,
+   fillColor: '#005500',
+   fillOpacity: 0.6
+  });
+  polygon.setMap(map);
+  fences.push(polygon);
+}
+
 
 //0 ~ 21
 function getNewScale(zoom) {
-
   if(zoom >= 0 && zoom <= 8)
     return new  google.maps.Size(2, 2);
   else if(zoom >=9 & zoom <=14)
@@ -210,7 +224,9 @@ function initialize()
   for(var i in boundaryAsGoogleMapPath) {
       setGeofence(boundaryAsGoogleMapPath[i]);
   }
-
+  for(var i in fenceAsGoogleMapPath) {
+    setFence(fenceAsGoogleMapPath[i]);
+  }
   /**
    * Adding a listener for zoom changes so that markers can be resized.
    */
