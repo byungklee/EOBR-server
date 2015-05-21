@@ -172,6 +172,7 @@ function loadNewTrip() {
    animationStatus = "stop";
    map.panTo(positions[animationIndex]);
 }
+
 var polygons = [];
 function setGeofence(path) {
   var polygon = new google.maps.Polygon({
@@ -186,11 +187,25 @@ function setGeofence(path) {
   polygons.push(polygon);
 }
 
+var fences = [];
+function setFence(path) {
+  var polygon = new google.maps.Polygon({
+   paths: path,
+     strokeColor: '#00FF00',
+   strokeOpacity: 1,
+   strokeWeight: 3,
+   fillColor: '#005500',
+   fillOpacity: 0.6
+  });
+  polygon.setMap(map);
+  fences.push(polygon);
+}
+
 
 //0 ~ 21
 function getNewScale(zoom) {
 
-  if(zoom <= 0 && zoom <= 12)
+  if(zoom >= 0 && zoom <= 12)
     return new  google.maps.Size(3, 3);
   else
     return new google.maps.Size(6,6);
@@ -208,7 +223,9 @@ function initialize()
   for(var i in boundaryAsGoogleMapPath) {
       setGeofence(boundaryAsGoogleMapPath[i]);
   }
-
+  for(var i in fenceAsGoogleMapPath) {
+    setFence(fenceAsGoogleMapPath[i]);
+  }
   /**
    * Adding a listener for zoom changes so that markers can be resized.
    */
@@ -224,7 +241,7 @@ function initialize()
               null, //size
               null, // origin
               null, // anchor
-              getNewScale(zoom);
+              getNewScale(zoom)
             )
         );
     }
