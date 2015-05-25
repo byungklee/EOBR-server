@@ -12,9 +12,17 @@ function loadTrip(event) {
 };
 
 function loadTripAjax(truck_id, trip_id) {
-	//alert(truck_id + " " + trip_id);
 	$.getJSON('/trips/tripDetail?truck_id=' + truck_id + '&trip_id=' + trip_id, function(data) {
 		tripData = data;
+
+		/*
+		people.sort(function(a, b) {
+        if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+        else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+    	});*/
+		tripData = tripData.sort(function(a,b) {
+			return a.id > b.id ? 1 : ( a.id < b. id ? - 1: 0 );
+		});
 		loadNewTrip();
 		//call map
 		//$('#map_display').html(JSON.stringify(data));
