@@ -48,7 +48,10 @@ function stopAnimation() {
 }
 
 function computeAngleFromTwoPoints(first, second) {
-  return 0;
+  var cal = (second.Y - first.Y)/(second.X - second.Y);
+  var tanVal = Math.atan(cal);
+  var angle = tanVal * 180 / 3.14;
+  return angle;
 }
 
 
@@ -73,10 +76,10 @@ function createMarker(location, index) {
       path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
       fillColor: getColor(index-1), // change the color of fill depending on type.
       fillOpacity: 0.8,
-      scale: 5,
+      scale: 2,
       strokeColor: 'black',
       strokeWeight: 1,
-      rotation: angle
+      rotation: 90 + angle;
   };
 
 
@@ -327,17 +330,17 @@ function initialize()
   google.maps.event.addListener(map, "zoom_changed", function() {
     var zoom = map.getZoom();
     // set all markers with new size depending on zoom level.
-      for(var i in markers) {
-        markers[i].setIcon(
-          new google.maps.MarkerImage(
-              markers[i].getIcon().url,
-              null, //size
-              null, // origin
-              null, // anchor
-              getNewScale(zoom)
-            )
-        );
-    }
+    //   for(var i in markers) {
+    //     markers[i].setIcon(
+    //       new google.maps.MarkerImage(
+    //           markers[i].getIcon().url,
+    //           null, //size
+    //           null, // origin
+    //           null, // anchor
+    //           getNewScale(zoom)
+    //         )
+    //     );
+    // }
   });
  
 }
