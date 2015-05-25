@@ -23,6 +23,9 @@ function loadTripAjax(truck_id, trip_id) {
 		tripData = tripData.sort(function(a,b) {
 			return a.id > b.id ? 1 : ( a.id < b. id ? - 1: 0 );
 		});
+
+		//DEBUG
+		//console.log("TripData: " + JSON.stringify(tripData));
 		loadNewTrip();
 		//call map
 		//$('#map_display').html(JSON.stringify(data));

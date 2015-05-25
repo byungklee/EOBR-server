@@ -47,11 +47,45 @@ function stopAnimation() {
   }
 }
 
+/** 
+ * Compute angle between two points.
+ * first and second are google.map.LatLng
+ */
 function computeAngleFromTwoPoints(first, second) {
-  var cal = (second.Y - first.Y)/(second.X - second.Y);
+  var diffY = first.lat()-second.lat();
+  var diffX =  first.lng()-second.lng();
+ //var cal = (second.lng()- first.lng())/(second.lat()- first.lat());
+  // var cal = (second.lat()- second.lat())/(second.lng()- first.lng());
+  var cal = diffY/diffX;
   var tanVal = Math.atan(cal);
-  var angle = tanVal * 180 / 3.14;
-  return angle;
+  var angle = tanVal * 180.0 / 3.14;
+//  console.log(first + " " + first.lat() + " Calculation: " + cal + " " + tanVal +  " " + angle); 
+  // console.log(first + " " + second + 
+  //   " angle: " + angle + " temp: " +  diffX+ " "+ diffY);
+
+  //Case diffY = -, diffX = +
+  //return 180 +
+  if(diffX >= 0.0 && diffY >= 0.0) {
+      console.log("case1: " +first + " " + second + 
+    " angle: " + angle + " temp: " +  diffX+ " "+ diffY);
+    return 180+angle;
+  } else if(diffX>=0.0 && diffY<=0.0) {
+      console.log("case2: " +first + " " + second + 
+    " angle: " + angle + " temp: " +  diffX+ " "+ diffY + " final angle: " + (270+(-1*angle)));
+    return 180+angle;
+  } else if(diffX<=0.0 && diffY <=0.0) {
+      console.log("case3: " +first + " " + second + 
+    " angle: " + angle + " temp: " +  diffX+ " "+ diffY);
+  
+        return angle;
+  } else {
+    console.log("case4: " +first + " " + second + 
+    " angle: " + angle + " temp: " +  diffX+ " "+ diffY);
+    return angle;
+  }
+
+
+  
 }
 
 
@@ -67,11 +101,12 @@ function createMarker(location, index) {
   //   null, //origin5
   //   null, //anchor
   //   new google.maps.Size(3,3) //scale
-  // );
+  // );s
   var image;
   var angle;
   
   angle = computeAngleFromTwoPoints(positions[index-1],positions[index]);
+  console.log("More final angle: " + (-90.0 - angle));
   image = {
       path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
       fillColor: getColor(index-1), // change the color of fill depending on type.
@@ -79,11 +114,9 @@ function createMarker(location, index) {
       scale: 2,
       strokeColor: 'black',
       strokeWeight: 1,
-      rotation: 90 + angle;
+      rotation: (-90.0 - angle)
   };
 
-
-  console.log("image " + image);
   var marker = new google.maps.Marker({
     position: positions[index-1],
     map: map,
