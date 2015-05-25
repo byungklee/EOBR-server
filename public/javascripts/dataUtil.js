@@ -209,7 +209,7 @@ var myHomeForTest = [
 
 
 /**
- *      Fence In
+ *    Fence In
  */ 
 
 // SSA Terminals
@@ -222,26 +222,10 @@ createPoint( 33.773934, -118.239673),
 createPoint( 33.773451, -118.239674),
 createPoint( 33.773199, -118.239476),
 createPoint( 33.772996, -118.239130),
-createPoint( 33.772524, -118.238352),
-createPoint( 33.772281, -118.238068),
-createPoint( 33.772695, -118.237752),
-createPoint( 33.772868, -118.238177),
+createPoint( 33.772707, -118.238636),
+createPoint( 33.773001, -118.238333),
 createPoint( 33.773115, -118.238453),
 createPoint( 33.773786, -118.239342)
-];
-
-
-// Pier C
-// 1521 Pier C St., Long Beach, CA 90813
-var pierCFence = [
-createPoint( 33.773428, -118.213571),
-createPoint( 33.773181, -118.213432),
-createPoint( 33.773542, -118.212526),
-createPoint( 33.773537, -118.211921),
-createPoint( 33.773620, -118.211669),
-createPoint( 33.773710, -118.211713),
-createPoint( 33.773631, -118.211911),
-createPoint( 33.773767, -118.212608)
 ];
 
 // Pacific Container Terminal
@@ -258,13 +242,14 @@ createPoint( 33.741202, -118.187841),
 createPoint( 33.742124, -118.188144),
 createPoint( 33.742246, -118.188395),
 createPoint( 33.742268, -118.188701),
-createPoint( 33.742163, -118.189836),
-createPoint( 33.741967, -118.189815),
-createPoint( 33.742068, -118.188878),
-createPoint( 33.741918, -118.188601),
+// createPoint( 33.742163, -118.189836),
+// createPoint( 33.741967, -118.189815),
+// createPoint( 33.742068, -118.188878),
+// createPoint( 33.741918, -118.188601),
 createPoint( 33.741325, -118.188372),
 createPoint( 33.741174, -118.188613),
-createPoint( 33.741022, -118.189218)];
+createPoint( 33.741022, -118.189218)
+]
 
 // Long Beach Container Terminal
 // PIER F BERTHS F6-F10
@@ -282,20 +267,22 @@ createPoint( 33.747969, -118.214365),
 createPoint( 33.748066, -118.214736),
 createPoint( 33.748220, -118.214844),
 createPoint( 33.749909, -118.214422)
-]
+];
+
 
 //International Transportation Service
 //
 var itsFence = [
 createPoint( 33.745127, -118.191495),
 createPoint( 33.745126, -118.191042),
-createPoint( 33.741720, -118.191129),
-createPoint( 33.741876, -118.191501),
+// createPoint( 33.741720, -118.191129),
+// createPoint( 33.741876, -118.191501),
+createPoint( 33.743040, -118.190979),
+createPoint( 33.742263, -118.191324),
 createPoint( 33.742532, -118.191684)
 ]
 
-//Total Terminals International
-//HanJIn
+//Hanjin
 var ttiFence = [
 createPoint( 33.760802, -118.224026),
 createPoint( 33.761086, -118.223227),
@@ -305,11 +292,19 @@ createPoint( 33.758566, -118.222516),
 createPoint( 33.759215, -118.223195)
 ];
 
-//Ferry
-// Berths 226-236
-// Seaside Transportation Service 
-// 389 Terminal Island Way
-// Terminal Island, CA 90731
+var pierCFence = [
+createPoint( 33.773428, -118.213571),
+createPoint( 33.773181, -118.213432),
+createPoint( 33.773542, -118.212526),
+createPoint( 33.773537, -118.211921),
+createPoint( 33.773620, -118.211669),
+createPoint( 33.773710, -118.211713),
+createPoint( 33.773631, -118.211911),
+createPoint( 33.773767, -118.212608)
+];
+
+
+
 var stsFence = [
 createPoint( 33.742384, -118.266831),
 createPoint( 33.742605, -118.266290),
@@ -331,11 +326,7 @@ createPoint( 33.741543, -118.267220),
 createPoint( 33.741931, -118.266600)
 ];
 
-//Berths 302-305
-//Eagle Marine Services, Ltd.
-//614 Terminal Way
-//Terminal Island, CA 90731
-var emsFence = [
+var emsFence = [ 
 createPoint( 33.742660, -118.254553),
 createPoint( 33.740925, -118.253778),
 createPoint( 33.741081, -118.253187),
@@ -360,40 +351,8 @@ createPoint( 33.723291, -118.252156),
 createPoint( 33.722799, -118.253820)
 ];
 
-//Above APM
-var aboveApmFence = [
-createPoint( 33.728913, -118.241525),
-createPoint( 33.727942, -118.241123),
-createPoint( 33.728451, -118.239380),
-createPoint( 33.729725, -118.239913),
-createPoint( 33.729672, -118.240082),
-createPoint( 33.729463, -118.240041),
-createPoint( 33.729324, -118.240144)
-];
 
-
-//Berths 212-225
-//Yusen Terminals Inc.
-// 701 New Dock Street
-// Terminal Island, CA 90731
-var yusenFence = [
-createPoint( 33.756229, -118.254498),
-createPoint( 33.756134, -118.254436),
-createPoint( 33.756060, -118.254109),
-createPoint( 33.755813, -118.253936),
-createPoint( 33.756546, -118.251743),
-createPoint( 33.756719, -118.251358),
-createPoint( 33.757098, -118.251552),
-createPoint( 33.757222, -118.251791),
-createPoint( 33.757179, -118.252105),
-createPoint( 33.756617, -118.253626),
-createPoint( 33.756421, -118.253931)
-];
-
-//Berths 121-131
-//West Basin Container Terminal LLC
-// 2050 John S. Gibson Boulevard, San Pedro, CA 90731
-var westBasinFecne = [
+var westBasinFence = [
 createPoint( 33.756158, -118.289156),
 createPoint( 33.755871, -118.289078),
 createPoint( 33.756030, -118.288510),
@@ -414,13 +373,39 @@ createPoint( 33.756391, -118.288266),
 createPoint( 33.756178, -118.288761)
 ];
 
-//next to west basin
+var yusenFence= [
+createPoint( 33.756645, -118.253528),
+createPoint( 33.756077, -118.253244),
+createPoint( 33.757533, -118.248877),
+createPoint( 33.757689, -118.248915),
+createPoint( 33.757068, -118.250695),
+createPoint( 33.757028, -118.250925),
+createPoint( 33.757022, -118.251192),
+createPoint( 33.757085, -118.251490),
+createPoint( 33.757226, -118.251789),
+createPoint( 33.757202, -118.251996)
+];
+
 var nextWestBasinFence = [
 createPoint( 33.770113, -118.278725),
 createPoint( 33.769239, -118.278567),
 createPoint( 33.768471, -118.279952),
 createPoint( 33.769325, -118.280108),
-createPoint( 33.769836, -118.279512)
+createPoint( 33.769836, -118.279512)];
+
+var aboveApmFence = [
+createPoint( 33.728913, -118.241525),
+createPoint( 33.727942, -118.241123),
+createPoint( 33.728451, -118.239380),
+createPoint( 33.731427, -118.240593),
+createPoint( 33.732348, -118.240144),
+createPoint( 33.732716, -118.240300),
+createPoint( 33.732700, -118.240447),
+createPoint( 33.732377, -118.240326),
+createPoint( 33.731444, -118.240818),
+createPoint( 33.729649, -118.240086),
+createPoint( 33.729463, -118.240041),
+createPoint( 33.729324, -118.240144)
 ];
 
 
@@ -439,7 +424,7 @@ var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
 var fenceBoundary = [pierAFence,pierFFence,pierJFence,pierCFence,
                         itsFence,ttiFence,stsFence,emsFence,
                         apmTerminalFence, aboveApmFence,yusenFence,
-                        westBasinFecne,nextWestBasinFence];
+                        westBasinFence,nextWestBasinFence];
 
 
 var preboundary = [];

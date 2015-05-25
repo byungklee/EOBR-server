@@ -1,3 +1,7 @@
+
+/**
+ *  Global variable for map, markers and postions.
+ */ 
 var map;
 var markers = [];
 var positions = [];
@@ -7,10 +11,11 @@ var positions = [];
 //             new google.maps.LatLng(-18.5333,70.9667),
 //             new google.maps.LatLng(-20.5333,75.9667)
 //             ];
+
+//Animation Status = "run", "stop", "pause"
+var animationStatus = "stop";
 var animationIndex = 0;
 
-//Status = "run", "stop", "pause"
-var animationStatus = "stop";
 
 function startAnimation() {
   if(animationStatus != "run") {
@@ -20,7 +25,7 @@ function startAnimation() {
 }
 
 function animate() {
-     setTimeout(function(){ 
+    setTimeout(function(){ 
     map.panTo(positions[animationIndex]);
     animationIndex++;
     if(animationIndex < positions.length ) {
@@ -42,6 +47,10 @@ function stopAnimation() {
   }
 }
 
+function computeAngleFromTwoPoints(first, second) {
+  return 0;
+}
+
 
 /**
  * Create a marker with location and index(points to tripData).
@@ -49,27 +58,70 @@ function stopAnimation() {
 function createMarker(location, index) {
   
   //Choose icon image depending on a type.
-  var image = new google.maps.MarkerImage(
-    pickIconImage(index),
-    new google.maps.Size(8,8), //size
-    null, //origin5
-    null, //anchor
-    new google.maps.Size(3,3) //scale
-  );
-
-
+  // var image = new google.maps.MarkerImage(
+  //   pickIconImage(index),
+  //   new google.maps.Size(8,8), //size
+  //   null, //origin5
+  //   null, //anchor
+  //   new google.maps.Size(3,3) //scale
+  // );
+  var image;
+  var angle;
   
+  angle = computeAngleFromTwoPoints(positions[index-1],positions[index]);
+  image = {
+      path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+      fillColor: getColor(index-1), // change the color of fill depending on type.
+      fillOpacity: 0.8,
+      scale: 5,
+      strokeColor: 'black',
+      strokeWeight: 1,
+      rotation: angle
+  };
+
+
   console.log("image " + image);
   var marker = new google.maps.Marker({
-    position: location,
+    position: positions[index-1],
     map: map,
     icon: image
-
   });
-  attachMessage(marker,index);
+  attachMessage(marker,index-1);
+
   return marker;
   //markers.push(marker);
 };
+
+function getColor(index) {
+    if(tripData[index].type == "start") {
+    return "blue";
+  } else if(tripData[index].type == "stop") {
+    return "red";
+  } else if(tripData[index].type == "Running") {
+    return "green";
+  } else if(tripData[index].type =="hook/unhook") {
+    return "brown";
+  } else if(tripData[index].type =="fenceIn") {
+    return "pink";
+  } else if(tripData[index].type =="fenceOut") {
+    return "orange";
+  } else if(tripData[index].type =="available") {
+    return "lightgreen";
+  } else if(tripData[index].type =="unavailable") {
+    return "darkred";
+  } else if(tripData[index].type =="dock_in" || tripData[index].type =="gateIn") {
+    return "yellow";
+  } else if(tripData[index].type =="dock_out") {
+    return "brown";
+  } else if(tripData[index].type =="waiting_for_dock") {
+    return "darkyellow";
+  } else if(tripData[index].type =="pick_up") {
+    return "purple";
+  } else if(tripData[index].type =="deliver") {
+    return "emerald";
+  } else
+     return "emerald";
+}
 
 function pickIconImage(index) {
 
@@ -157,22 +209,59 @@ function currentTripToPosition(tripData) {
 function positionsToMarkers(positions) {
   for(var i in positions) {
     //addMarker(positions[i]);
+     if(i == 0) {
+      continue;
+     }
      var marker = createMarker(positions[i], i);
      markers.push(marker)
+
+     if(i == positions.length - 1) {
+        image = {
+          url: pickIconImage(i),
+          size: new google.maps.Size(8,8),
+          origin: null,
+          anchor: null,
+          scaledSize: new google.maps.Size(3,3)
+        }
+        var marker2 = new google.maps.Marker({
+          position: positions[i],
+          map: map,
+          icon: image
+        });
+        attachMessage(marker2,i);
+        markers.push(marker2);
+
+      };
+
   }
 }
 
+/**
+ * Loading the selected trip information to the google map.
+ *
+ */
 function loadNewTrip() {
+   // Clean existing markers from google map.
    clearMarkers();
+   
+   // Load data into position array.
    positions = currentTripToPosition(tripData);
+   
+   // Change postions to markers
    positionsToMarkers(positions);
+   
+   // Set map
    setAllMap(map);
    
+   // For animation.
    animationIndex=0; // initializing marker index to 0 for animation
    animationStatus = "stop";
    map.panTo(positions[animationIndex]);
 }
 
+/*
+  For stock area.
+*/
 var polygons = [];
 function setGeofence(path) {
   var polygon = new google.maps.Polygon({
@@ -187,6 +276,9 @@ function setGeofence(path) {
   polygons.push(polygon);
 }
 
+/*
+  For fences
+*/
 var fences = [];
 function setFence(path) {
   var polygon = new google.maps.Polygon({
@@ -202,7 +294,9 @@ function setFence(path) {
 }
 
 
-//0 ~ 21
+/*
+  Zoom level is between 0 ~ 21. Returning a new size depending on zoom level.
+*/
 function getNewScale(zoom) {
   if(zoom >= 0 && zoom <= 8)
     return new  google.maps.Size(2, 2);
@@ -233,10 +327,8 @@ function initialize()
   google.maps.event.addListener(map, "zoom_changed", function() {
     var zoom = map.getZoom();
     // set all markers with new size depending on zoom level.
-    var fixedSize = 25;
-    //getNewScale(zoom);
-    for(var i in markers) {
-      markers[i].setIcon(
+      for(var i in markers) {
+        markers[i].setIcon(
           new google.maps.MarkerImage(
               markers[i].getIcon().url,
               null, //size
