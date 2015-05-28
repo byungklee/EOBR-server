@@ -232,13 +232,229 @@ createPoint(33.78810959427681, -118.10805852966303),
 createPoint(33.78165363510723, -118.10810144500726),
 createPoint(33.781617965472634, -118.11149175720209),
 createPoint(33.78850192969818, -118.11595495300287)
+];
+
+/**
+ *    Fence In
+ */ 
+
+// SSA Terminals
+// PIER A BERTHS A88-A96
+var pierAFence = [
+createPoint( 33.774478, -118.239286),
+createPoint( 33.774503, -118.239427),
+createPoint( 33.774120, -118.239525),
+createPoint( 33.773934, -118.239673),
+createPoint( 33.773451, -118.239674),
+createPoint( 33.773199, -118.239476),
+createPoint( 33.772996, -118.239130),
+createPoint( 33.772707, -118.238636),
+createPoint( 33.773001, -118.238333),
+createPoint( 33.773115, -118.238453),
+createPoint( 33.773786, -118.239342)
+];
+
+// Pacific Container Terminal
+// PIER J
+// 1521 Pier J Avenue, Long Beach, CA 90802
+var pierJFence = [
+createPoint( 33.740800, -118.189802),
+createPoint( 33.740469, -118.189697),
+createPoint( 33.740647, -118.189058),
+createPoint( 33.740647, -118.188790),
+createPoint( 33.740914, -118.187902),
+createPoint( 33.741081, -118.187804),
+createPoint( 33.741202, -118.187841),
+createPoint( 33.742124, -118.188144),
+createPoint( 33.742246, -118.188395),
+createPoint( 33.742268, -118.188701),
+// createPoint( 33.742163, -118.189836),
+// createPoint( 33.741967, -118.189815),
+// createPoint( 33.742068, -118.188878),
+// createPoint( 33.741918, -118.188601),
+createPoint( 33.741325, -118.188372),
+createPoint( 33.741174, -118.188613),
+createPoint( 33.741022, -118.189218)
 ]
+
+// Long Beach Container Terminal
+// PIER F BERTHS F6-F10
+// 1171 Pier F Ave., Berth F10, Long Beach, CA 90802
+var pierFFence = [
+createPoint( 33.749915, -118.214341),
+createPoint( 33.749778, -118.213692),
+createPoint( 33.749430, -118.213737),
+createPoint( 33.748918, -118.214207),
+createPoint( 33.748806, -118.214482),
+createPoint( 33.748373, -118.214605),
+createPoint( 33.748129, -118.214484),
+createPoint( 33.748192, -118.214339),
+createPoint( 33.747969, -118.214365),
+createPoint( 33.748066, -118.214736),
+createPoint( 33.748220, -118.214844),
+createPoint( 33.749909, -118.214422)
+];
+
+
+//International Transportation Service
+//
+var itsFence = [
+createPoint( 33.745127, -118.191495),
+createPoint( 33.745126, -118.191042),
+// createPoint( 33.741720, -118.191129),
+// createPoint( 33.741876, -118.191501),
+createPoint( 33.743040, -118.190979),
+createPoint( 33.742263, -118.191324),
+createPoint( 33.742532, -118.191684)
+]
+
+//Hanjin
+var ttiFence = [
+createPoint( 33.760802, -118.224026),
+createPoint( 33.761086, -118.223227),
+createPoint( 33.758659, -118.221902),
+createPoint( 33.758501, -118.222324),
+createPoint( 33.758566, -118.222516),
+createPoint( 33.759215, -118.223195)
+];
+
+var pierCFence = [
+createPoint( 33.773428, -118.213571),
+createPoint( 33.773181, -118.213432),
+createPoint( 33.773542, -118.212526),
+createPoint( 33.773537, -118.211921),
+createPoint( 33.773620, -118.211669),
+createPoint( 33.773710, -118.211713),
+createPoint( 33.773631, -118.211911),
+createPoint( 33.773767, -118.212608)
+];
+
+
+
+var stsFence = [
+createPoint( 33.742384, -118.266831),
+createPoint( 33.742605, -118.266290),
+createPoint( 33.741844, -118.265885),
+createPoint( 33.741596, -118.266422),
+createPoint( 33.740636, -118.268783),
+createPoint( 33.740843, -118.269366),
+createPoint( 33.740859, -118.269452),
+createPoint( 33.740805, -118.269543),
+createPoint( 33.740694, -118.269578),
+createPoint( 33.740394, -118.269419),
+createPoint( 33.740328, -118.269575),
+createPoint( 33.740683, -118.269750),
+createPoint( 33.740864, -118.269701),
+createPoint( 33.740995, -118.269553),
+createPoint( 33.740979, -118.269270),
+createPoint( 33.740886, -118.269012),
+createPoint( 33.741543, -118.267220),
+createPoint( 33.741931, -118.266600)
+];
+
+var emsFence = [ 
+createPoint( 33.742660, -118.254553),
+createPoint( 33.740925, -118.253778),
+createPoint( 33.741081, -118.253187),
+createPoint( 33.741863, -118.253522),
+createPoint( 33.742162, -118.254006),
+createPoint( 33.742770, -118.254317)
+];
+
+//Berths 401-406
+//APM Terminals
+// 2500 Navy Way
+// Terminal Island, CA 90731
+//(310) 221-4000
+var apmTerminalFence = [
+createPoint( 33.722332, -118.253631),
+createPoint( 33.722746, -118.252195),
+createPoint( 33.722779, -118.252146),
+createPoint( 33.723512, -118.251840),
+createPoint( 33.723542, -118.251947),
+createPoint( 33.723411, -118.252008),
+createPoint( 33.723291, -118.252156),
+createPoint( 33.722799, -118.253820)
+];
+
+
+var westBasinFence = [
+createPoint( 33.756158, -118.289156),
+createPoint( 33.755871, -118.289078),
+createPoint( 33.756030, -118.288510),
+createPoint( 33.756020, -118.288440),
+createPoint( 33.756053, -118.288316),
+createPoint( 33.756042, -118.287970),
+createPoint( 33.756148, -118.287747),
+createPoint( 33.756665, -118.287263),
+createPoint( 33.757180, -118.286118),
+createPoint( 33.757221, -118.285278),
+createPoint( 33.757378, -118.284898),
+createPoint( 33.757840, -118.285208),
+createPoint( 33.757818, -118.285571),
+createPoint( 33.757897, -118.286429),
+createPoint( 33.757865, -118.286635),
+createPoint( 33.757530, -118.287470),
+createPoint( 33.756391, -118.288266),
+createPoint( 33.756178, -118.288761)
+];
+
+var yusenFence= [
+createPoint( 33.756645, -118.253528),
+createPoint( 33.756077, -118.253244),
+createPoint( 33.757533, -118.248877),
+createPoint( 33.757689, -118.248915),
+createPoint( 33.757068, -118.250695),
+createPoint( 33.757028, -118.250925),
+createPoint( 33.757022, -118.251192),
+createPoint( 33.757085, -118.251490),
+createPoint( 33.757226, -118.251789),
+createPoint( 33.757202, -118.251996)
+];
+
+var nextWestBasinFence = [
+createPoint( 33.770113, -118.278725),
+createPoint( 33.769239, -118.278567),
+createPoint( 33.768471, -118.279952),
+createPoint( 33.769325, -118.280108),
+createPoint( 33.769836, -118.279512)];
+
+var aboveApmFence = [
+createPoint( 33.728913, -118.241525),
+createPoint( 33.727942, -118.241123),
+createPoint( 33.728451, -118.239380),
+createPoint( 33.731427, -118.240593),
+createPoint( 33.732348, -118.240144),
+createPoint( 33.732716, -118.240300),
+createPoint( 33.732700, -118.240447),
+createPoint( 33.732377, -118.240326),
+createPoint( 33.731444, -118.240818),
+createPoint( 33.729649, -118.240086),
+createPoint( 33.729463, -118.240041),
+createPoint( 33.729324, -118.240144)
+];
+
+var schoolFence = [
+createPoint(33.788564822335424, -118.10785404357898),
+createPoint(33.78662096247371, -118.1078755012511),
+createPoint(33.78662096247371, -118.10924879226673),
+createPoint(33.78683496755591, -118.1092273345946),
+createPoint(33.78681713381949, -118.10806862030017),
+createPoint(33.78854698895927, -118.10804716262805)
+];
+
+
 
 var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
                          tandc,john,pierF,pierG, harborScienic, 
                          harry,ferry,pico,navywayIn, navywayOut,
                          school
                          ];
+
+var fenceBoundary = [pierAFence,pierFFence,pierJFence,pierCFence,
+                        itsFence,ttiFence,stsFence,emsFence,
+                        apmTerminalFence, aboveApmFence,yusenFence,
+                        westBasinFence,nextWestBasinFence, schoolFence];
 
 /**
  *  Fence In Boundary
@@ -262,12 +478,16 @@ var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
 
 // var boundaryAsGoogleMapPath =boundaryToGooleMapBoundary(boundary);
 // console.log(boundaryAsGoogleMapPath);
+
+/**
+ *  Create a point of X,Y pair.
+ */
 function createPoint(x,y) {
     var temp = { X: x, Y: y };
     return temp;
 }
 
-function checkData(data) {
+function checkDataInBoundary(data) {
     for(var i in boundary) {
        var isIn = pointInPolygon(boundary[i], createPoint(data.latitude, data.longitude));
        if(isIn)
@@ -275,6 +495,15 @@ function checkData(data) {
     }
     return false;
     //return pointInPolygon()
+}
+
+function checkDataInFence(data) {
+   for(var i in fenceBoundary) {
+       var isIn = pointInPolygon(fenceBoundary[i], createPoint(data.latitude, data.longitude));
+       if(isIn)
+        return true;
+    }
+  return false;
 }
 
 function pointInPolygon(listOfPoints, point)
@@ -308,4 +537,5 @@ function pointInPolygon(listOfPoints, point)
     return oddNodes;
 }
 
-exports.checkData = checkData;
+exports.checkDataInFence = checkDataInFence;
+exports.checkDataInBoundary = checkDataInBoundary;

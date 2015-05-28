@@ -408,13 +408,14 @@ createPoint( 33.729463, -118.240041),
 createPoint( 33.729324, -118.240144)
 ];
 
-
-
-
-
-
-
-
+var schoolFence = [
+createPoint(33.788564822335424, -118.10785404357898),
+createPoint(33.78662096247371, -118.1078755012511),
+createPoint(33.78662096247371, -118.10924879226673),
+createPoint(33.78683496755591, -118.1092273345946),
+createPoint(33.78681713381949, -118.10806862030017),
+createPoint(33.78854698895927, -118.10804716262805)
+];
 
 var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
                          tandc,john,pierF,pierG, harborScienic, 
@@ -424,7 +425,9 @@ var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
 var fenceBoundary = [pierAFence,pierFFence,pierJFence,pierCFence,
                         itsFence,ttiFence,stsFence,emsFence,
                         apmTerminalFence, aboveApmFence,yusenFence,
-                        westBasinFence,nextWestBasinFence];
+                        westBasinFence,nextWestBasinFence, schoolFence];
+
+
 
 
 var preboundary = [];

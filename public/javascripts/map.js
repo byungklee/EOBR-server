@@ -54,40 +54,17 @@ function stopAnimation() {
 function computeAngleFromTwoPoints(first, second) {
   var diffY = first.lat()-second.lat();
   var diffX =  first.lng()-second.lng();
- //var cal = (second.lng()- first.lng())/(second.lat()- first.lat());
-  // var cal = (second.lat()- second.lat())/(second.lng()- first.lng());
   var cal = diffY/diffX;
   var tanVal = Math.atan(cal);
   var angle = tanVal * 180.0 / 3.14;
-//  console.log(first + " " + first.lat() + " Calculation: " + cal + " " + tanVal +  " " + angle); 
-  // console.log(first + " " + second + 
-  //   " angle: " + angle + " temp: " +  diffX+ " "+ diffY);
 
-  //Case diffY = -, diffX = +
-  //return 180 +
-  if(diffX >= 0.0 && diffY >= 0.0) {
-      console.log("case1: " +first + " " + second + 
-    " angle: " + angle + " temp: " +  diffX+ " "+ diffY);
+  // Two cases where diffX is positive or negative.
+  if(diffX >= 0.0) {
     return 180+angle;
-  } else if(diffX>=0.0 && diffY<=0.0) {
-      console.log("case2: " +first + " " + second + 
-    " angle: " + angle + " temp: " +  diffX+ " "+ diffY + " final angle: " + (270+(-1*angle)));
-    return 180+angle;
-  } else if(diffX<=0.0 && diffY <=0.0) {
-      console.log("case3: " +first + " " + second + 
-    " angle: " + angle + " temp: " +  diffX+ " "+ diffY);
-  
-        return angle;
   } else {
-    console.log("case4: " +first + " " + second + 
-    " angle: " + angle + " temp: " +  diffX+ " "+ diffY);
     return angle;
   }
-
-
-  
 }
-
 
 /**
  * Create a marker with location and index(points to tripData).
@@ -128,6 +105,9 @@ function createMarker(location, index) {
   //markers.push(marker);
 };
 
+/**
+ * getColor depending on type.
+ */
 function getColor(index) {
     if(tripData[index].type == "start") {
     return "blue";
@@ -145,7 +125,7 @@ function getColor(index) {
     return "lightgreen";
   } else if(tripData[index].type =="unavailable") {
     return "darkred";
-  } else if(tripData[index].type =="dock_in" || tripData[index].type =="gateIn") {
+  } else if(tripData[index].type =="dock_in" || tripData[index].type =="gateIn" || tripData[index].type=="gate_in") {
     return "yellow";
   } else if(tripData[index].type =="dock_out") {
     return "brown";
@@ -159,9 +139,10 @@ function getColor(index) {
      return "emerald";
 }
 
+/**
+ *  Get type depending on type. Somewhat deprecated right now.
+ */ 
 function pickIconImage(index) {
-
-  
   if(tripData[index].type == "start") {
     return "../images/1.png";
   } else if(tripData[index].type == "stop") {
@@ -200,6 +181,9 @@ function createTripInfo(trip) {
   return tripInfo;
 }
 
+/**
+ *  Attaching information of the data on a marker.
+ */
 function attachMessage(marker, index) {
   var message = ['This', 'is', 'the', 'secret', 'message'];
   var tripInfo = createTripInfo(tripData[index]);//JSON.stringify(tripData[index]);
@@ -212,21 +196,23 @@ function attachMessage(marker, index) {
   });
 }
 
-
+/**
+ *  Set all marker's map to map.
+ */
 function setAllMap(map) {
   for (var i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
   }
 };
 
+/**
+ * Set all marker's map to null.
+ */
 function clearMarkers() {
   setAllMap(null);
   markers = [];
 };
 
-function test() {
-
-}
 /**
  *  Change current trip info to position 
  *
@@ -312,9 +298,9 @@ function setGeofence(path) {
   polygons.push(polygon);
 }
 
-/*
-  For fences
-*/
+/**
+ *  For gate on the map.
+ */
 var fences = [];
 function setFence(path) {
   var polygon = new google.maps.Polygon({
@@ -328,7 +314,6 @@ function setFence(path) {
   polygon.setMap(map);
   fences.push(polygon);
 }
-
 
 /*
   Zoom level is between 0 ~ 21. Returning a new size depending on zoom level.
@@ -359,6 +344,7 @@ function initialize()
   }
   /**
    * Adding a listener for zoom changes so that markers can be resized.
+   * Not really using it after using arrow markers.
    */
   google.maps.event.addListener(map, "zoom_changed", function() {
     var zoom = map.getZoom();

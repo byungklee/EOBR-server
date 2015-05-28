@@ -9,7 +9,11 @@ router.get('/', function(req,res) {
   res.render('index')
 });
 
+var STATE_OUTSIDE = 0;
+var STATE_FENCE_IN = 1;
+var STATE_GATE_IN = 2;
 var router_isIn = {};
+var router_states = {};
 var DEBUG = true;
 
 function print(message) {
@@ -53,31 +57,62 @@ router.post('/add', function(req,res) {
     var truck_id = jsonbody.record.truck_id;    
 
     console.log("Checking single json!");
-    console.log("current routerIs_IN " + router_isIn[truck_id]);
+    console.log("current router state: " + router_states[truck_id]);
 
-    if(jsonbody.record.type == "start" || router_isIn[truck_id] == null) {
+    if(jsonbody.record.type == "start" || router_states[truck_id] == null) {
       console.log("initializing router_isIn");
-      router_isIn[truck_id] = dataUtil.checkData(jsonbody.record);
+      if(dataUtil.checkDataInBoundary(jsonbody.record)) {
+        router_states[truck_id] = STATE_GATE_IN;
+      } else {
+        router_states[truck_id] = STATE_OUTSIDE;
+      }
     }
 
     //if is in look for gateOut.
     //if is in look for gateIn.
-
-    if(router_isIn[truck_id] != dataUtil.checkData(jsonbody.record)) {
-      if(jsonbody.record.type == "Running") {
-        console.log("Found running type with fence changed");
-        if(router_isIn[truck_id]) {
-          console.log("putting it to fenceout");
-
-          jsonbody.record.type = 'fenceOut';
-        } else {
-          console.log("putting it to fencein");
+    if(jsonbody.record.type == "Running") {
+      if(router_states[truck_id] == STATE_OUTSIDE) {
+        if(dataUtil.checkDataInFence(jsonbody.record)) {
+          //Next to State: Fence in.
           jsonbody.record.type = 'fenceIn';
+          router_states[truck_id] = STATE_FENCE_IN;
         }
-        router_isIn[truck_id] = !router_isIn[truck_id];
-        console.log("changing router_isIn ");
+      } else if(router_states[truck_id] == STATE_FENCE_IN) {
+        var inFence = dataUtil.checkDataInFence(jsonbody.record);
+        var inBoundary = dataUtil.checkDataInBoundary(jsonbody.record);
+        if(!inFence && inBoundary ) {
+          //Next to State: Gate in.
+          jsonbody.record.type = 'gateIn';
+          router_states[truck_id] = STATE_GATE_IN;
+        }
+      } else {
+        var inFence = dataUtil.checkDataInFence(jsonbody.record);
+        var inBoundary = dataUtil.checkDataInBoundary(jsonbody.record);
+        if (!inBoundary && !inFence ) {
+          //Next to State: Outside.
+          jsonbody.record.type = 'fenceOut';
+          router_states[truck_id] = STATE_OUTSIDE;
+        }
       }
     }
+
+    // if(router_isIn[truck_id] != dataUtil.checkDataInBoundary(jsonbody.record)) {
+    //   if(jsonbody.record.type == "Running") {
+    //     console.log("Found running type with fence changed");
+    //     if(router_isIn[truck_id]) {
+    //       console.log("putting it to fenceout");
+
+    //       jsonbody.record.type = 'fenceOut';
+    //     } else {
+    //       console.log("putting it to fencein");
+    //       jsonbody.record.type = 'fenceIn';
+    //     }
+    //     router_isIn[truck_id] = !router_isIn[truck_id];
+    //     console.log("changing router_isIn ");
+    //   }
+    // }
+
+
     db.collection('trips').insert(jsonbody.record, {w:1}, function(err,result){});
   } else {
 
@@ -91,16 +126,26 @@ router.post('/add', function(req,res) {
       console.log("chekcing multiple jsons!");
    // var isIn = dataUtil.checkData(jsonbody.record[0]);
 
+   /**
+    * Inserting All new updates.
+    */
    for(var i in jsonbody.record) {
     db.collection('trips').insert(jsonbody.record[i], {w:1}, function(err,result){});
   }
 
-  var existRecord;
+    var existRecord;
     //print(existRecord);
     print("Query by " + jsonbody.record[0].trip_id);
+    /**
+     * Retrieve all the data with the same trip_id sorte by id.
+     */
     db.collection('trips').find({trip_id:jsonbody.record[0].trip_id},{"sort":"id"}).toArray(function (err,items) {
+      /**
+       * Inside Callback after retrieving all the data,
+       * Make all geofence cases to running.
+       */
       for(var i in items) {
-        if(items[i].type == "fenceOut" || items[i].type == "fenceIn") {
+        if(items[i].type == "fenceOut" || items[i].type == "fenceIn" || items[i].type == "gateIn") {
           items[i].type = "Running";
         }
       }
@@ -108,26 +153,69 @@ router.post('/add', function(req,res) {
 
       existRecord = items;
 
-      var isIn = false;
-    if(existRecord != null) {
-      isIn = dataUtil.checkData(existRecord[0]);
-    }
+      /**
+       * Set initial tripstate depending on the first element.
+       */
+      var tripState = 0;
+      if(existRecord != null) {
+         if(dataUtil.checkDataInBoundary(existRecord[0])) {
+            tripState = 0;
+         } else {
+            tripState = 2;
+         }
+      }
+
+
       for(var i in existRecord) {
         if(i !== 0) {
+          /**
+           *  Temp has an element of data.
+           */
           var temp = existRecord[i];
-          if(isIn != dataUtil.checkData(temp)) {
-            if(jsonbody.record.type == "Running") {
-              if(isIn) {
-
-                temp.type = 'fenceOut';
-              } else {
-                temp.type = 'fenceIn';
-              }
-              db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+          if(temp.type == "Running") {
+            if(router_states[truck_id] == STATE_OUTSIDE) {
+              if(dataUtil.checkDataInFence(jsonbody.record)) {
+                //Next to State: Fence in.
+                jsonbody.record.type = 'fenceIn';
+                router_states[truck_id] = STATE_FENCE_IN;
+                  db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
                {type:temp.type},{upsert:true});
-            }
+              }
+            } else if(router_states[truck_id] == STATE_FENCE_IN) {
+              var inFence = dataUtil.checkDataInFence(jsonbody.record);
+              var inBoundary = dataUtil.checkDataInBoundary(jsonbody.record);
+              if(!inFence && inBoundary ) {
+                //Next to State: Gate in.
+                jsonbody.record.type = 'gateIn';
+                router_states[truck_id] = STATE_GATE_IN;
+                db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+               {type:temp.type},{upsert:true});
+              }
+            } else {
+              var inFence = dataUtil.checkDataInFence(jsonbody.record);
+              var inBoundary = dataUtil.checkDataInBoundary(jsonbody.record);
+              if (!inBoundary && !inFence ) {
+                //Next to State: Outside.
+                jsonbody.record.type = 'fenceOut';
+                router_states[truck_id] = STATE_OUTSIDE;
+                db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+               {type:temp.type},{upsert:true});
+               }
+             }
           }
-          isIn = !isIn;
+          // if(isIn != dataUtil.checkData(temp)) {
+          //   if(jsonbody.record.type == "Running") {
+          //     if(isIn) {
+
+          //       temp.type = 'fenceOut';
+          //     } else {
+          //       temp.type = 'fenceIn';
+          //     }
+          //     db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+          //      {type:temp.type},{upsert:true});
+          //   }
+          // }
+          // isIn = !isIn;
    // db.collection('trips').insert(temp, {w:1}, function(err,result){});
         }
       }
