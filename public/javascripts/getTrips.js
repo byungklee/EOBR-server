@@ -39,7 +39,8 @@ function loadTripAjax(truck_id, trip_id) {
 		$.each(tripData, function() {
 			var timeJson = JSON.parse(this.time);
 			var date = timeJson.month + '-' + timeJson.day + '-' + timeJson.year;
-			var time = timeJson.time + " " + timeJson.timezone;
+			var timezone = timeJson.timezone == "America/Los_Angeles" ? "PMT" : timeJson.timezone;
+			var time = timeJson.time + " " + timezone;
 			tableContent += '<tr>';
 			tableContent += '<td>' + date+ '</td>';
 		//	tableContent += '<td>' + this.id + '</td>';
