@@ -1,15 +1,22 @@
 #map_display {
 	/*width: tri;*/
 	height: 500px;
-	width: 130%;
-	margin-left: 10px;
+	/*width: 130%;*/
+	/*margin-left: 10px;*/
 	overflow:scroll;
 }
 
-#triplist_display {
+#triplist_table {
 	/*width: tri;*/
 	height: 500px;
-	width: 600px;
+	/*width: 600px;*/
+	overflow:scroll;
+}
+
+#tripdata_table {
+	/*width: tri;*/
+	height: 500px;
+	/*width: 600px;*/
 	overflow:scroll;
 }
 
@@ -24,9 +31,66 @@
         position: absolute;
         top: 5px;
         left: 50%;
+        margin-top: 60px;
         margin-left: -180px;
         z-index: 5;
         background-color: #fff;
         padding: 5px;
         border: 1px solid #999;
 }
+
+table tr.highlighted {
+  background-color:#999;
+}
+
+.bk_table {
+	 /*border: 1px solid black;*/
+
+}
+
+th, td {
+	padding: 5px;
+}
+
+tr {
+	border : 1px solid #cccccc;
+}
+
+
+
+body {
+	background-color:#f9f0ea;
+}
+
+.header {
+  text-align:left;
+  vertical-align:middle;
+}
+a {
+	 color: #ff584c;
+}
+
+/* unvisited link */
+a:link {
+    color: #ff584c;
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: #ff584c;
+    text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+    color: #cf584c;
+    text-decoration: none;
+}
+
+/* selected link */
+a:active {
+     color: #ff584c;
+    /*text-decoration: none;*/
+}
+
