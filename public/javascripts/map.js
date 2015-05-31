@@ -243,7 +243,7 @@ function positionsToMarkers(positions) {
           size: new google.maps.Size(8,8),
           origin: null,
           anchor: null,
-          scaledSize: new google.maps.Size(3,3)
+          scaledSize: new google.maps.Size(4,4)
         }
         var marker2 = new google.maps.Marker({
           position: positions[i],
@@ -327,6 +327,10 @@ function getNewScale(zoom) {
     return new google.maps.Size(7, 7);
 }
 
+function setSelectedMarkerVisible(index, visibility) {
+  markers[i].setVisible(visibility);
+}
+
 
 function initialize()
 {
@@ -361,7 +365,6 @@ function initialize()
     //     );
     // }
   });
- 
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

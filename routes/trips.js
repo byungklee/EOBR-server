@@ -34,7 +34,7 @@ router.get('/tripDetail', function(req,res) {
 	console.log(typeof query.truck_id + " " + typeof query.trip_id);
 	//08:00:27:58:ea:6c	3
 	var db= req.db;
-	db.collection('trips').find({ truck_id: query.truck_id, trip_id: parseInt(query.trip_id)}).toArray(function(err,items) {
+	db.collection('trips').find({ truck_id: query.truck_id, trip_id: parseInt(query.trip_id)},{"sort":"id"}).toArray(function(err,items) {
 		console.log(items);
 		res.json(items);
 

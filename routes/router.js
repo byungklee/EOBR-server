@@ -71,25 +71,33 @@ router.post('/add', function(req,res) {
     //if is in look for gateOut.
     //if is in look for gateIn.
     if(jsonbody.record.type == "Running") {
+      print("Type is running, so considering the state");
       if(router_states[truck_id] == STATE_OUTSIDE) {
+        print("Current State: State Outside");
         if(dataUtil.checkDataInFence(jsonbody.record)) {
           //Next to State: Fence in.
+          print("Condition Satisfied. Going to Next State: Fence_in");
           jsonbody.record.type = 'fenceIn';
           router_states[truck_id] = STATE_FENCE_IN;
         }
       } else if(router_states[truck_id] == STATE_FENCE_IN) {
+        print("Current State: Fence_In");
+
         var inFence = dataUtil.checkDataInFence(jsonbody.record);
         var inBoundary = dataUtil.checkDataInBoundary(jsonbody.record);
         if(!inFence && inBoundary ) {
           //Next to State: Gate in.
+          print("Condition Satisfied. Going to Next State: GateIN");
           jsonbody.record.type = 'gateIn';
           router_states[truck_id] = STATE_GATE_IN;
         }
       } else {
+        print("Current State: Gate_in");
         var inFence = dataUtil.checkDataInFence(jsonbody.record);
         var inBoundary = dataUtil.checkDataInBoundary(jsonbody.record);
         if (!inBoundary && !inFence ) {
           //Next to State: Outside.
+          print("Condition Satisfied. Going to Next State: Outside");
           jsonbody.record.type = 'fenceOut';
           router_states[truck_id] = STATE_OUTSIDE;
         }
@@ -130,16 +138,40 @@ router.post('/add', function(req,res) {
     * Inserting All new updates.
     */
    for(var i in jsonbody.record) {
-    db.collection('trips').insert(jsonbody.record[i], {w:1}, function(err,result){});
-  }
+    db.collection('trips').insert(jsonbody.record[i], {w:1}, function(err,result){
+       if((parseInt(i) + 1) == jsonbody.record.length) {
+            console.log("Callback");
+            sortData(db,jsonbody.record[i].trip_id);    
+        }
+      
+    });
+    
+ 
+   }
 
-    var existRecord;
+   
+    
+
+
+    
     //print(existRecord);
-    print("Query by " + jsonbody.record[0].trip_id);
+    // print("Query by " + jsonbody.record[0].trip_id);
+    
+    
+
+    
+    }
+
+
+
+  res.send('Success!');
+});
+
+function sortData(db,trip_id) {
     /**
      * Retrieve all the data with the same trip_id sorte by id.
      */
-    db.collection('trips').find({trip_id:jsonbody.record[0].trip_id},{"sort":"id"}).toArray(function (err,items) {
+      db.collection('trips').find({trip_id: trip_id},{"sort":"id"}).toArray(function (err,items) {
       /**
        * Inside Callback after retrieving all the data,
        * Make all geofence cases to running.
@@ -147,11 +179,12 @@ router.post('/add', function(req,res) {
       for(var i in items) {
         if(items[i].type == "fenceOut" || items[i].type == "fenceIn" || items[i].type == "gateIn") {
           items[i].type = "Running";
+          db.collection('trips').update({id: items[i].id, truck_id: items[i].truck_id, trip_id:items[i].trip_id},
+               {$set: {type:items[i].type}},{upsert:true}, function(err,result){if(!err) print("updated!")});
         }
       }
       print("calling trip: " + items);
-
-      existRecord = items;
+      var existRecord = items;
 
       /**
        * Set initial tripstate depending on the first element.
@@ -173,33 +206,33 @@ router.post('/add', function(req,res) {
            */
           var temp = existRecord[i];
           if(temp.type == "Running") {
-            if(router_states[truck_id] == STATE_OUTSIDE) {
-              if(dataUtil.checkDataInFence(jsonbody.record)) {
+            if(tripState == STATE_OUTSIDE) {
+              if(dataUtil.checkDataInFence(temp)) {
                 //Next to State: Fence in.
-                jsonbody.record.type = 'fenceIn';
-                router_states[truck_id] = STATE_FENCE_IN;
+                temp.type = 'fenceIn';
+                tripState = STATE_FENCE_IN;
                   db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
-               {type:temp.type},{upsert:true});
+               {$set: {type:temp.type}},{upsert:true}, function(err,result){if(!err) print("updated!")});
               }
-            } else if(router_states[truck_id] == STATE_FENCE_IN) {
-              var inFence = dataUtil.checkDataInFence(jsonbody.record);
-              var inBoundary = dataUtil.checkDataInBoundary(jsonbody.record);
+            } else if(tripState == STATE_FENCE_IN) {
+              var inFence = dataUtil.checkDataInFence(temp);
+              var inBoundary = dataUtil.checkDataInBoundary(temp);
               if(!inFence && inBoundary ) {
                 //Next to State: Gate in.
-                jsonbody.record.type = 'gateIn';
-                router_states[truck_id] = STATE_GATE_IN;
-                db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
-               {type:temp.type},{upsert:true});
+                temp.type = 'gateIn';
+                tripState = STATE_GATE_IN;
+                 db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+               {$set: {type:temp.type}},{upsert:true}, function(err,result){if(!err) print("updated!")});
               }
             } else {
-              var inFence = dataUtil.checkDataInFence(jsonbody.record);
-              var inBoundary = dataUtil.checkDataInBoundary(jsonbody.record);
+              var inFence = dataUtil.checkDataInFence(temp);
+              var inBoundary = dataUtil.checkDataInBoundary(temp);
               if (!inBoundary && !inFence ) {
                 //Next to State: Outside.
-                jsonbody.record.type = 'fenceOut';
-                router_states[truck_id] = STATE_OUTSIDE;
-                db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
-               {type:temp.type},{upsert:true});
+                temp.type = 'fenceOut';
+                tripState = STATE_OUTSIDE;
+                  db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+               {$set: {type:temp.type}},{upsert:true}, function(err,result){if(!err) print("updated!")});
                }
              }
           }
@@ -220,16 +253,11 @@ router.post('/add', function(req,res) {
         }
       }
     });
-
-    
-    }
-
-  res.send('Success!');
-});
-
-function insertJson(db, json) {
-
 }
+
+router.get('/trips/tripdatas/sort_trip', function(req,res) {
+  sortTrip(req.body.trip_id);
+});
 
 router.get('/print', function(req,res) {
   var collection = req.db.collection('trips');
