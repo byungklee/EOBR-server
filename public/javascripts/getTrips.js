@@ -134,12 +134,12 @@ function updateMarker(index, isHighlighted) {
 			markers[index].setVisible(false);
 			markerSelectedCounter--;	
 		}
-		//Case 2.2: After case 2.1, none of markers is highlighted.
-		if(markerSelectedCounter == 0) {
-			for(var i in markers) {
-				markers[i].setVisible(true);
-			}
-		}
+		// //Case 2.2: After case 2.1, none of markers is highlighted.
+		// if(markerSelectedCounter == 0) {
+		// 	for(var i in markers) {
+		// 		markers[i].setVisible(true);
+		// 	}
+		// }
 	}
 }
 

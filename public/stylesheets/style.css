@@ -63,7 +63,10 @@ table tr.highlighted {
 .childTbl th,
 .childTbl td {
   border: 1px solid #d7d7d7;
-  width: 100px;
+  width: 130px;
+  
+
+  
 }
 .scrollData {
   width: 300px;
@@ -93,6 +96,10 @@ table tbody
 
 body {
 	background-color:#f9f0ea;
+}
+
+.marginTop {
+	margin-top: 50px ;
 }
 
 .header {

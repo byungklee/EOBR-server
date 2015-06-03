@@ -279,6 +279,10 @@ function loadNewTrip() {
    animationIndex=0; // initializing marker index to 0 for animation
    animationStatus = "stop";
    map.panTo(positions[animationIndex]);
+
+  for(var i in markers) {
+     markers[i].setVisible(false);
+  }
 }
 
 /*
@@ -331,6 +335,15 @@ function setSelectedMarkerVisible(index, visibility) {
   markers[i].setVisible(visibility);
 }
 
+function setAllMarkers(visible) {
+  for(var i in markers) {
+    markers[i].setVisible(visible);
+
+  }
+    $("#tripdata_table tr").each( function(i,tr) {
+      $(this).toggleClass("highlighted");
+    } );
+}
 
 function initialize()
 {
