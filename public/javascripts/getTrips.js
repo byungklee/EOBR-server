@@ -1,6 +1,8 @@
 var tripsData = []; //list of trips
 var tripData=[]; //details of one trip
 var markerSelectedCounter = 0; //Counter of selected markers.
+var tripSelectedIndex = -1;
+var previousTemp = null;
 
 /**
  * 	On document ready, load trip lists and set clickable.
@@ -16,6 +18,13 @@ $(document).ready(function() {
 function loadTrip(event) {
 	var index = $(this).parent().index();
 	var trip = tripsData[index];
+	if(previousTemp != null) {
+		previousTemp.toggleClass("highlighted");
+	}
+
+	$(this).parent().toggleClass("highlighted");
+	previousTemp = $(this).parent();
+	tripSelectedIndex = index;
 	loadTripAjax(trip.truck_id, trip.trip_id);
 };
 
