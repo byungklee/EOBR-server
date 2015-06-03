@@ -74,7 +74,10 @@ table tr.highlighted {
   overflow-x: hidden;
 }
 
-
+.edge {
+	border: 1px solid #c8c8c8;
+	height: 620px;
+}
 
 
 /*th, td {
@@ -99,7 +102,7 @@ body {
 }
 
 .marginTop {
-	margin-top: 50px ;
+	margin-top: 5px ;
 }
 
 .header {
