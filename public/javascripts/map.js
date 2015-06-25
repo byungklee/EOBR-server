@@ -109,34 +109,43 @@ function createMarker(location, index) {
  * getColor depending on type.
  */
 function getColor(index) {
-    if(tripData[index].type == "start") {
+  var t = tripData[index].type;
+    if(t == "start") {
     return "blue";
-  } else if(tripData[index].type == "stop") {
+  } else if(t == "stop") {
     return "red";
-  } else if(tripData[index].type == "Running") {
-    return "green";
-  } else if(tripData[index].type =="hook/unhook") {
-    return "brown";
-  } else if(tripData[index].type =="fenceIn") {
+  } else if(t == "Running") {
+    return "#008000";
+  } else if(t =="fenceIn") {
     return "pink";
-  } else if(tripData[index].type =="fenceOut") {
+  } else if(t =="fenceOut") {
     return "orange";
-  } else if(tripData[index].type =="available") {
-    return "lightgreen";
-  } else if(tripData[index].type =="unavailable") {
-    return "darkred";
-  } else if(tripData[index].type =="dock_in" || tripData[index].type =="gateIn" || tripData[index].type=="gate_in") {
+  } else if(t=="unavailable") {
+    return "#ADD8E6";
+  } else if(t =="dock_in" || t =="gateIn" || t =="gate_in") {
     return "yellow";
-  } else if(tripData[index].type =="dock_out") {
+  } else if(t =="dock_out") {
     return "brown";
-  } else if(tripData[index].type =="waiting_for_dock") {
+  } else if(t =="chassis_picked_up") {
     return "darkyellow";
-  } else if(tripData[index].type =="pick_up") {
+  } else if(t =="chassis_delivered") {
     return "purple";
-  } else if(tripData[index].type =="deliver") {
+  } else if(t =="chassis_unavailable") {
     return "emerald";
-  } else
+  } else if(t =="load_picked_up") {
+    return "brown";
+  } else if(t =="load_delivered") {
      return "emerald";
+  } else if (t =="load_unavailable") {
+    return "#808000"
+  } else if( t == "empty_picked_up") {
+    return "#800000"
+  } else if(t =="empty_delivered") {
+    return "#0000A0"
+  } else if(t == "empty_unavailable") {
+    return "#00FFFF"
+  } else 
+    return "#C0C0C0"
 }
 
 /**
@@ -341,7 +350,15 @@ function setAllMarkers(visible) {
 
   }
     $("#tripdata_table tr").each( function(i,tr) {
-      $(this).toggleClass("highlighted");
+      if(visible) {
+        if($(this).hasClass("highlighted") == false) {
+          $(this).addClass("highlighted");    
+        }
+        
+      } else {
+        $(this).removeClass("highlighted");
+      }
+      
     } );
 }
 

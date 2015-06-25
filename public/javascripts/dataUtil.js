@@ -549,7 +549,6 @@ function pointInPolygon(listOfBoundaryPoints, point)
         if (listOfBoundaryPoints[i].Y < point.Y && listOfBoundaryPoints[j].Y >= point.Y ||
             listOfBoundaryPoints[j].Y < point.Y && listOfBoundaryPoints[i].Y >= point.Y)
         {
-        	//console.log("Checkin deno: " + listOfBoundaryPoints[j].Y - listOfBoundaryPoints[i].Y);
         	/**
         	 *     A - X1 		X2-X1
         	 *    ________  =  _______
@@ -559,8 +558,6 @@ function pointInPolygon(listOfBoundaryPoints, point)
             if (listOfBoundaryPoints[i].X +
                 (point.Y - listOfBoundaryPoints[i].Y)/(listOfBoundaryPoints[j].Y - listOfBoundaryPoints[i].Y)*(listOfBoundaryPoints[j].X - listOfBoundaryPoints[i].X) < point.X)
             {
-          //  	console.log("intersect: x1: " + listOfBoundaryPoints[i].X + " Ty: " + point.Y + 
-          //  		" y1: " + listOfBoundaryPoints[i].Y  + " y2: " + listOfBoundaryPoints[j].Y + " x2: " + listOfBoundaryPoints[j].X);
                 oddNodes = !oddNodes;
             }
         }

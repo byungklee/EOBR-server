@@ -47,7 +47,7 @@ router.post('/add', function(req,res) {
  var db = req.db;
 	//req.body is json itself
 	var jsonbody = req.body;
-
+  console.log("Before:");
   console.log(jsonbody.record); 
 
   if(jsonbody.record[0] == null) {
@@ -90,6 +90,9 @@ router.post('/add', function(req,res) {
           print("Condition Satisfied. Going to Next State: GateIN");
           jsonbody.record.type = 'gateIn';
           router_states[truck_id] = STATE_GATE_IN;
+        } else if( !inFence && !inBoundary) {
+          print("Condition Satisfied. Going to Next State: Outside");
+          router_states[truck_id] = STATE_OUTSIDE;
         }
       } else {
         print("Current State: Gate_in");
@@ -100,6 +103,10 @@ router.post('/add', function(req,res) {
           print("Condition Satisfied. Going to Next State: Outside");
           jsonbody.record.type = 'fenceOut';
           router_states[truck_id] = STATE_OUTSIDE;
+        } else if(inFence) {
+          print("Condition Satisfied. Going to Next State: Fence_in");
+          jsonbody.record.type = 'fenceIn';
+          router_states[truck_id] = STATE_FENCE_IN;
         }
       }
     }
@@ -119,7 +126,8 @@ router.post('/add', function(req,res) {
     //     console.log("changing router_isIn ");
     //   }
     // }
-
+    console.log("After:");
+    console.log(jsonbody.record); 
 
     db.collection('trips').insert(jsonbody.record, {w:1}, function(err,result){});
   } else {
@@ -223,6 +231,11 @@ function sortData(db,trip_id) {
                 tripState = STATE_GATE_IN;
                  db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
                {$set: {type:temp.type}},{upsert:true}, function(err,result){if(!err) print("updated!")});
+              } else if(!inFence && !inBoundary) {
+                 // temp.type = 'gateIn';
+                tripState = STATE_OUTSIDE;
+                 db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+               {$set: {type:temp.type}},{upsert:true}, function(err,result){if(!err) print("updated!")});
               }
             } else {
               var inFence = dataUtil.checkDataInFence(temp);
@@ -234,6 +247,12 @@ function sortData(db,trip_id) {
                   db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
                {$set: {type:temp.type}},{upsert:true}, function(err,result){if(!err) print("updated!")});
                }
+              else if(inFence) {
+                temp.type = 'fenceIn';
+                tripState = STATE_FENCE_IN;
+                  db.collection('trips').update({id: temp.id, truck_id: temp.truck_id, trip_id:temp.trip_id},
+               {$set: {type:temp.type}},{upsert:true}, function(err,result){if(!err) print("updated!")});
+              }
              }
           }
           // if(isIn != dataUtil.checkData(temp)) {

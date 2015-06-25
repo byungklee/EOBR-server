@@ -1,10 +1,7 @@
 /** 
  *   Stock Boundary
  */
-
-
-
-
+ 
 var seaSide = [
 createPoint(33.7609627529093, -118.23950822906488),
 createPoint(33.76514592470526, -118.24017287457258),
@@ -539,3 +536,6 @@ function pointInPolygon(listOfPoints, point)
 
 exports.checkDataInFence = checkDataInFence;
 exports.checkDataInBoundary = checkDataInBoundary;
+
+ console.log(checkDataInBoundary(createPoint(33.74610738,-118.24579195)));
+ console.log(checkDataInFence(createPoint(33.74610738,-118.24579195)));
