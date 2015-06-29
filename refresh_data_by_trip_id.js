@@ -5,6 +5,7 @@ var db;
 var STATE_OUTSIDE = 0;
 var STATE_FENCE_IN = 1;
 var STATE_GATE_IN = 2;
+var STATE_WAREHOUSE_IN = 3;
 
 MongoClient.connect("mongodb://localhost:27017/eobrdb", function(err, dbb) {
   if(err) { return console.dir(err); }
@@ -36,7 +37,7 @@ function refresh() {
         }
       }
 
-      console.log(items);
+      console.log(items[1]);
       console.log("");
       console.log("");
       //print("calling trip: " + items);
@@ -83,6 +84,15 @@ function refresh() {
                //  console.log(err);
                //  console.log(doc);
                // });
+              } else if(dataUtil.checkDataInWarehouse(temp)) {
+                temp.type = 'warehouseIn';
+                dataList.push(temp);
+                tripState = STATE_WAREHOUSE_IN;
+                  db.collection('trips').update(
+                  {id: temp2.id, truck_id: temp2.truck_id, trip_id:temp2.trip_id},
+                  {$set: {type: temp2.type}},
+                  function(err,result) { console.log(result)}
+                  );
               }
             
             } else if(tripState == STATE_FENCE_IN) {
@@ -123,44 +133,54 @@ function refresh() {
                   );
               }
 
-            } else {
-              var inFence = dataUtil.checkDataInFence(temp);
-              var inBoundary = dataUtil.checkDataInBoundary(temp);
-              if (!inBoundary && !inFence ) {
-                //Next to State: Outside.
-                console.log("gate into outside");
+            } else if(tripState == STATE_GATE_IN) {
+                  var inFence = dataUtil.checkDataInFence(temp);
+                  var inBoundary = dataUtil.checkDataInBoundary(temp);
+                  if (!inBoundary && !inFence ) {
+                    //Next to State: Outside.
+                    console.log("gate into outside");
 
-               temp.type = 'fenceOut';
-               dataList.push(temp);
-                tripState = STATE_OUTSIDE;
-                console.log(temp);
-                 var temp2 = temp;
-                 db.collection('trips').update(
-                  {id: temp2.id, truck_id: temp2.truck_id, trip_id:temp2.trip_id},
-                  {$set: {type: temp2.type}},
-                  function(err,result) { console.log(result)}
-                  );
-               //  db.collection('trips').findAndModify({id: temp2.id, truck_id: temp2.truck_id, trip_id:temp2.trip_id},
-               // {},{type:temp2.type},{upsert:true},function(err, doc){
-               //  console.log("Result:");
-               //  console.log(err);
-               //  console.log(doc);
-               // });
-               } else if (inFence) {
-                  temp.type= 'fenceIn';
-                  tripState = STATE_FENCE_IN;
-                  var temp2 = temp;
-                  db.collection('trips').update(
-                    {id: temp2.id, truck_id: temp2.truck_id, trip_id:temp2.trip_id},
-                    {$set: {type: temp2.type}},
-                    function(err,result) { console.log(result)}
-                  );
-               }
+                   temp.type = 'fenceOut';
+                   dataList.push(temp);
+                    tripState = STATE_OUTSIDE;
+                    console.log(temp);
+                     var temp2 = temp;
+                     db.collection('trips').update(
+                      {id: temp2.id, truck_id: temp2.truck_id, trip_id:temp2.trip_id},
+                      {$set: {type: temp2.type}},
+                      function(err,result) { console.log(result)}
+                      );
+                   //  db.collection('trips').findAndModify({id: temp2.id, truck_id: temp2.truck_id, trip_id:temp2.trip_id},
+                   // {},{type:temp2.type},{upsert:true},function(err, doc){
+                   //  console.log("Result:");
+                   //  console.log(err);
+                   //  console.log(doc);
+                   // });
+                   } else if (inFence) {
+                      temp.type= 'fenceIn';
+                      tripState = STATE_FENCE_IN;
+                      var temp2 = temp;
+                      db.collection('trips').update(
+                        {id: temp2.id, truck_id: temp2.truck_id, trip_id:temp2.trip_id},
+                        {$set: {type: temp2.type}},
+                        function(err,result) { console.log(result)}
+                      );
+                   }
+             } else if(tripState == STATE_WAREHOUSE_IN) {
+                var isInWarehouse == dataUtil.checkDataInWarehouse(temp);
+                if(!isInWarehouse) {
+                      temp.type= 'warehouseOut';
+                      tripState = STATE_OUTSIDE;
+                      var temp2 = temp;
+                      db.collection('trips').update(
+                        {id: temp2.id, truck_id: temp2.truck_id, trip_id:temp2.trip_id},
+                        {$set: {type: temp2.type}},
+                        function(err,result) { console.log(result)}
+                      );
+                }
              }
           }
-        
       }
-   
     });
 
 }
