@@ -328,6 +328,19 @@ function setFence(path) {
   fences.push(polygon);
 }
 
+function setWarehouse(path) {
+  var polygon = new google.maps.Polygon({
+   paths: path,
+     strokeColor: '#F3F3F3',
+   strokeOpacity: 1,
+   strokeWeight: 3,
+   fillColor: '#005500',
+   fillOpacity: 0.6
+  });
+  polygon.setMap(map);
+  fences.push(polygon);
+}
+
 /*
   Zoom level is between 0 ~ 21. Returning a new size depending on zoom level.
 */
@@ -376,6 +389,10 @@ function initialize()
   for(var i in fenceAsGoogleMapPath) {
     setFence(fenceAsGoogleMapPath[i]);
   }
+  for(var i in warehouseAsGoogleMapPath) {
+    setWarehouse(warehouseAsGoogleMapPath[i]);
+  }
+
   /**
    * Adding a listener for zoom changes so that markers can be resized.
    * Not really using it after using arrow markers.

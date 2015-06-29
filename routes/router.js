@@ -12,6 +12,8 @@ router.get('/', function(req,res) {
 var STATE_OUTSIDE = 0;
 var STATE_FENCE_IN = 1;
 var STATE_GATE_IN = 2;
+var STATE_WAREHOUSE_IN = 3;
+var STATE_WAREHOUSE_OUT = 4;
 var router_isIn = {};
 var router_states = {};
 var DEBUG = true;
@@ -94,7 +96,7 @@ router.post('/add', function(req,res) {
           print("Condition Satisfied. Going to Next State: Outside");
           router_states[truck_id] = STATE_OUTSIDE;
         }
-      } else {
+      } else if(router_states[truck_id] == STATE_GATE_IN) {
         print("Current State: Gate_in");
         var inFence = dataUtil.checkDataInFence(jsonbody.record);
         var inBoundary = dataUtil.checkDataInBoundary(jsonbody.record);

@@ -440,6 +440,447 @@ createPoint(33.78681713381949, -118.10806862030017),
 createPoint(33.78854698895927, -118.10804716262805)
 ];
 
+/*
+
+WARE HOUSE 
+
+*/
+
+//ICTF RAIL	
+var w1 = [createPoint(33.824108	,-118.224772),
+createPoint(33.824111	,-118.225067),
+createPoint(33.823875	,-118.225139),
+createPoint(33.823881	,-118.225458),
+createPoint(33.824061	,-118.225475),
+createPoint(33.824178	,-118.225839),
+createPoint(33.824183	,-118.2276),
+createPoint(33.823775	,-118.227633),
+createPoint(33.823636	,-118.227672),
+createPoint(33.82355   ,-118.227711),
+createPoint(33.823411	,-118.227808),
+createPoint(33.823275	,-118.227958),
+createPoint(33.823183	,-118.228169),
+createPoint(33.823144	,-118.228444),
+createPoint(33.823183	,-118.228672),
+createPoint(33.823203	,-118.228839),
+createPoint(33.822428	,-118.229183),
+createPoint(33.822208	,-118.229308),
+createPoint(33.821303	,-118.229581),
+createPoint(33.8202 	,-118.229917),
+createPoint(33.818497	,-118.230436),
+createPoint(33.815639	,-118.231543),
+createPoint(33.813792	,-118.229266),
+createPoint(33.806176	,-118.227457),
+createPoint(33.805705	,-118.225987),
+createPoint(33.804713	,-118.222468),
+createPoint(33.80624	,-118.222432),
+createPoint(33.812448	,-118.222434),
+createPoint(33.81269	,-118.22274),
+createPoint(33.821177	,-118.224502),
+createPoint(33.821445	,-118.224663),
+createPoint(33.821596	,-118.224709),
+createPoint(33.821766	,-118.224743),
+createPoint(33.823063	,-118.22474)];
+
+//ICE INT'L GROUP	
+var w2 = [createPoint(33.795562	,-118.256397),
+createPoint(33.795668	,-118.254399),
+createPoint(33.793916	,-118.254258),
+createPoint(33.793798	,-118.256288)];
+
+//ACT FULFILLMENT	
+var w3 = [createPoint(34.033311	,-117.541567),
+createPoint(34.032993	,-117.541642),
+createPoint(34.028765	,-117.541672),
+createPoint(34.028747	,-117.539542),
+createPoint(34.033326	,-117.539498)];
+
+//ACT FULFILLMENT WHSE	
+var w4 = [createPoint(34.051542	,-117.535943),
+createPoint(34.049959	,-117.535937),
+createPoint(34.049959	,-117.535578),
+createPoint(34.050033	,-117.535572),
+createPoint(34.050038	,-117.533968),
+createPoint(34.050001	,-117.533901),
+createPoint(34.04997   ,-117.533747),
+createPoint(34.051395	,-117.532719),
+createPoint(34.051404	,-117.533208),
+createPoint(34.051509	,-117.533433),
+createPoint(34.051512	,-117.535652),
+createPoint(34.051548	,-117.535736)];
+
+//ADM WAREHOUSE	
+var w5 = [createPoint(34.014311	,-118.197098),
+createPoint(34.016445	,-118.197094),
+createPoint(34.01645 ,-118.196614),
+createPoint(34.014263	,-118.196627)];
+
+//AG FUMIGATION	
+var w6 = [createPoint(33.817099	,-118.252701),
+createPoint(33.815657	,-118.252685),
+createPoint(33.815626	,-118.25199),
+createPoint(33.816258	,-118.251469),
+createPoint(33.816489	,-118.251338),
+createPoint(33.816753	,-118.251127),
+createPoint(33.816961	,-118.250902),
+createPoint(33.817089	,-118.250775)];
+
+//AMERICOLD CARSON	
+var w7 = [createPoint(33.808071	,-118.243749),
+createPoint(33.807203	,-118.243752),
+createPoint(33.806783	,-118.243682),
+createPoint(33.806736	,-118.242877),
+createPoint(33.806901	,-118.242879),
+createPoint(33.806883	,-118.241513),
+createPoint(33.808027	,-118.241454)];
+
+//ATSI,-LOS ANGELES	
+var w8 = [createPoint(33.78174	,-118.218862),
+createPoint(33.781803	,-118.218963),
+createPoint(33.781879	,-118.219032),
+createPoint(33.781981	,-118.219097),
+createPoint(33.782094	,-118.219163),
+createPoint(33.782168	,-118.219211),
+createPoint(33.782262	,-118.21926),
+createPoint(33.782441	,-118.219356),
+createPoint(33.782557	,-118.219308),
+createPoint(33.782597	,-118.219209),
+createPoint(33.782606	,-118.218957),
+createPoint(33.7826	,-118.218428),
+createPoint(33.782195	,-118.218426),
+createPoint(33.781611	,-118.218436),
+createPoint(33.781635	,-118.218557),
+createPoint(33.78169	,-118.218739)];
+
+
+//B N S F  (COMMERCE),	
+var w9 = [createPoint(34.002684	,-118.174077),
+createPoint(34.002853	,-118.174263),
+createPoint(34.002969	,-118.174402),
+createPoint(34.00309	,-118.174573),
+createPoint(34.003241	,-118.17484),
+createPoint(34.003373	,-118.175166),
+createPoint(34.003487	,-118.175509),
+createPoint(34.003654	,-118.176027),
+createPoint(34.004968	,-118.179839),
+createPoint(34.005505	,-118.181442),
+createPoint(34.006599	,-118.184669),
+createPoint(34.008563	,-118.190476),
+createPoint(34.011416	,-118.198903),
+createPoint(34.011731	,-118.200339),
+createPoint(34.011543	,-118.201302),
+createPoint(34.011349	,-118.201731),
+createPoint(34.011175	,-118.201902),
+createPoint(34.011171	,-118.203047),
+createPoint(34.011223	,-118.203359),
+createPoint(34.011337	,-118.203801),
+createPoint(34.011485	,-118.204271),
+createPoint(34.012006	,-118.204717),
+createPoint(34.013033	,-118.204405),
+createPoint(34.013284	,-118.203949),
+createPoint(34.013199	,-118.202936),
+createPoint(34.013161	,-118.202842),
+createPoint(34.012889	,-118.201055),
+createPoint(34.012734	,-118.199793),
+createPoint(34.012468	,-118.19674),
+createPoint(34.012294	,-118.195938),
+createPoint(34.010798	,-118.191455),
+createPoint(34.009593	,-118.192033),
+createPoint(34.009151	,-118.190751),
+createPoint(34.009802	,-118.190373),
+createPoint(34.007239	,-118.182851),
+createPoint(34.007146	,-118.18269),
+createPoint(34.007016	,-118.182549),
+createPoint(34.006438	,-118.182147),
+createPoint(34.003553	,-118.173628)];
+
+//BAXTER HEALTHCARE CORP	
+var w10 = [createPoint(34.216007	,-118.480337),
+createPoint(34.217595	,-118.480326),
+createPoint(34.217433	,-118.479323),
+createPoint(34.215985	,-118.479283)];
+
+//BDP EL SEGUNDO	
+var w11 = [createPoint(33.907774	,-118.383716),
+createPoint(33.908083	,-118.384676),
+createPoint(33.908756	,-118.38434),
+createPoint(33.908672	,-118.384055),
+createPoint(33.908487	,-118.38342),
+createPoint(33.908124	,-118.383556)];
+
+
+//BDP INT'L/NALCO	
+var w12 = [createPoint(33.839311	,-118.232205),
+createPoint(33.839667	,-118.232071),
+createPoint(33.839803	,-118.232042),
+createPoint(33.841367	,-118.231465),
+createPoint(33.841045	,-118.230142),
+createPoint(33.840935	,-118.229977),
+createPoint(33.840769	,-118.229963),
+createPoint(33.839992	,-118.230271),
+createPoint(33.839614	,-118.230294),
+createPoint(33.839331	,-118.23037),
+createPoint(33.839323	,-118.230525),
+createPoint(33.839321	,-118.231116)];
+
+//BROOKVALE CARSON	
+var w13 = [createPoint(33.841527	,-118.227341),
+createPoint(33.841534	,-118.229045),
+createPoint(33.841821	,-118.228947),
+createPoint(33.841933	,-118.228935),
+createPoint(33.84207	,-118.228937),
+createPoint(33.842232	,-118.228963),
+createPoint(33.842391	,-118.229016),
+createPoint(33.842576	,-118.229118),
+createPoint(33.842826	,-118.229345),
+createPoint(33.842807	,-118.228669),
+createPoint(33.842799	,-118.226595),
+createPoint(33.841496	,-118.227071)];
+
+//BROOKVALE CITY OF INDUSTRY	
+var w14 = [createPoint(34.05698	,-117.998467),
+createPoint(34.058547	,-117.996971),
+createPoint(34.05866	,-117.99685),
+createPoint(34.058765	,-117.99675),
+createPoint(34.05886	,-117.996598),
+createPoint(34.058969	,-117.996403),
+createPoint(34.05905	,-117.996201),
+createPoint(34.059122	,-117.995964),
+createPoint(34.05915	,-117.995759),
+createPoint(34.059163	,-117.995537),
+createPoint(34.059158	,-117.995339),
+createPoint(34.059136	,-117.995134),
+createPoint(34.059073	,-117.994937),
+createPoint(34.058988	,-117.994691),
+createPoint(34.058896	,-117.994497),
+createPoint(34.058759	,-117.994294),
+createPoint(34.058568	,-117.993949),
+createPoint(34.055109	,-117.997277),
+createPoint(34.056326	,-117.999087)];
+
+
+//BUENA PARK COLD STORAGE	
+var w15 = [createPoint(33.863124	,-118.012008),
+createPoint(33.863114	,-118.014628),
+createPoint(33.86218	,-118.014616),
+createPoint(33.862182	,-118.011984)];
+
+
+//CES ,- CARSON	
+var w16 = [createPoint(33.821052	,-118.245378),
+createPoint(33.82118	,-118.245609),
+createPoint(33.821014	,-118.245749),
+createPoint(33.821683	,-118.246899),
+createPoint(33.824071	,-118.244998),
+createPoint(33.823598	,-118.244166),
+createPoint(33.823439	,-118.24429),
+createPoint(33.823221	,-118.243943),
+createPoint(33.822964	,-118.244166),
+createPoint(33.822782	,-118.243905)];
+
+//FLOOR & DÉCOR	
+var w17 = [createPoint(33.817007	,-118.260677),
+createPoint(33.816992	,-118.258048),
+createPoint(33.816899	,-118.257953),
+createPoint(33.816893	,-118.257649),
+createPoint(33.814475	,-118.257631),
+createPoint(33.814471	,-118.260755)];
+
+
+//HARBOR WEIGHERS	
+//No visit by any driver	
+var w18 = [createPoint(33.775731	,-118.255467),
+createPoint(33.775761	,-118.254948),
+createPoint(33.77542	,-118.254938),
+createPoint(33.775402	,-118.255437)];
+
+
+//KOMAR MIRA LOMA	
+var w19 = [createPoint(34.018598	,-117.546063),
+createPoint(34.013703	,-117.546148),
+createPoint(34.013686	,-117.542188),
+createPoint(34.018549	,-117.542121)];
+
+
+//METRO YARD	
+var w20 = [createPoint(33.83897	,-118.207036),
+createPoint(33.840814	,-118.206546),
+createPoint(33.840949	,-118.206455),
+createPoint(33.842627	,-118.206032),
+createPoint(33.842177	,-118.205457),
+createPoint(33.839171	,-118.205722),
+createPoint(33.839085	,-118.205726),
+createPoint(33.838297	,-118.205691),
+createPoint(33.836931	,-118.205797),
+createPoint(33.836578	,-118.206056)];
+
+//NESTLES USA ,-DC 620	
+var w21 = [createPoint(34.022197	,-117.518198),
+createPoint(34.022388	,-117.518097),
+createPoint(34.022628	,-117.518013),
+createPoint(34.022845	,-117.517961),
+createPoint(34.023116	,-117.517935),
+createPoint(34.023496	,-117.517931),
+createPoint(34.02737	,-117.517903),
+createPoint(34.027396	,-117.515394),
+createPoint(34.025853	,-117.515024),
+createPoint(34.022799	,-117.515054),
+createPoint(34.022681	,-117.515068),
+createPoint(34.022555	,-117.515129),
+createPoint(34.02244	,-117.5152),
+createPoint(34.022325	,-117.515293),
+createPoint(34.021903	,-117.515767),
+createPoint(34.021622	,-117.516117),
+createPoint(34.021578	,-117.516244),
+createPoint(34.021585	,-117.516927),
+createPoint(34.021603	,-117.516998),
+createPoint(34.021785	,-117.51741),
+createPoint(34.021834	,-117.517504),
+createPoint(34.02202	,-117.517794)];
+
+//NEW VIEW GIFTS @ OHL WHSE	
+var w22 = [createPoint(33.827803	,-118.236235),
+createPoint(33.8278	,-118.234235),
+createPoint(33.826478	,-118.234235),
+createPoint(33.826473	,-118.234455),
+createPoint(33.826267	,-118.234566),
+createPoint(33.82625	,-118.236236)];
+
+//NYK,-TARGET LONG BEACH	
+var w23 = [createPoint(33.832078	,-118.229367),
+createPoint(33.832727	,-118.229088),
+createPoint(33.833784	,-118.228689),
+createPoint(33.834122	,-118.228449),
+createPoint(33.835432	,-118.227909),
+createPoint(33.835437	,-118.22556),
+createPoint(33.83229	,-118.22678)];
+
+
+//OFF DOCK USA	
+var w24 = [createPoint(33.818463	,-118.230481),
+createPoint(33.819624	,-118.230049),
+createPoint(33.819676	,-118.230087),
+createPoint(33.820243	,-118.229891),
+createPoint(33.820528	,-118.2298),
+createPoint(33.821005	,-118.229622),
+createPoint(33.821014	,-118.227491),
+createPoint(33.818482	,-118.226965)];
+
+//PRECISE DISTRIBUTION	
+var w25 = [createPoint(34.029245	,-117.369829),
+createPoint(34.029419	,-117.369965),
+createPoint(34.029543	,-117.370118),
+createPoint(34.029974	,-117.370926),
+createPoint(34.031346	,-117.373523),
+createPoint(34.034393	,-117.37122),
+createPoint(34.033959	,-117.370053),
+createPoint(34.033653	,-117.369107),
+createPoint(34.03358	,-117.368756),
+createPoint(34.033451	,-117.368405),
+createPoint(34.033281	,-117.368218),
+createPoint(34.032607	,-117.367297),
+createPoint(34.032513	,-117.367235),
+createPoint(34.032298	,-117.367189),
+createPoint(34.03107	,-117.367181),
+createPoint(34.030807	,-117.367503),
+createPoint(34.030569	,-117.367902),
+createPoint(34.030316	,-117.368628),
+createPoint(34.029657	,-117.369145),
+createPoint(34.0295	,-117.369317)];
+
+//PRICE TRANSFER	
+var w26 = [createPoint(33.845034	,-118.212238),
+createPoint(33.844418	,-118.212469),
+createPoint(33.844428	,-118.21378),
+createPoint(33.844464	,-118.213966),
+createPoint(33.844519	,-118.214162),
+createPoint(33.844596	,-118.214317),
+createPoint(33.844694	,-118.214467),
+createPoint(33.844818	,-118.214614),
+createPoint(33.844922	,-118.214696),
+createPoint(33.845114	,-118.214816),
+createPoint(33.84528	,-118.214868),
+createPoint(33.845503	,-118.214861),
+createPoint(33.845735	,-118.214816),
+createPoint(33.845999	,-118.214731),
+createPoint(33.846478	,-118.21461),
+createPoint(33.846447	,-118.213192),
+createPoint(33.846491	,-118.212909),
+createPoint(33.846464	,-118.211952),
+createPoint(33.846141	,-118.211963),
+createPoint(33.845796	,-118.21201),
+createPoint(33.845564	,-118.212064)];
+
+
+//PRICE TRANSFER ,- CET	
+//no visit by any driver	
+var w27 = [createPoint(33.817079	,-118.250792),
+createPoint(33.816169	,-118.251556),
+//createPoint(33.81568	createPoint(33.81568
+createPoint(33.815711	,-118.252685),
+createPoint(33.817104	,-118.252679)];
+
+
+//PRIME WEST WAREHOUSE	
+var w28 = [createPoint(35.313307	,-119.09009),
+createPoint(35.314913	,-119.090087),
+createPoint(35.314892	,-119.088458),
+createPoint(35.313293	,-119.088466)];
+
+
+
+//TARGET CENTER	
+var w29 = [createPoint(34.045465	,-117.575629),
+createPoint(34.047062	,-117.575638),
+createPoint(34.047055	,-117.575354),
+createPoint(34.046876	,-117.575357),
+createPoint(34.046825	,-117.567852),
+createPoint(34.045588	,-117.567854),
+createPoint(34.045435	,-117.567924)];
+
+//TARGET DISTRIBUTION ,- T553	
+var w30 = [createPoint(34.111579	,-117.475702),
+createPoint(34.109217	,-117.475758),
+createPoint(34.109198	,-117.478702),
+createPoint(34.110726	,-117.481812),
+createPoint(34.110302	,-117.482142),
+createPoint(34.110263	,-117.482241),
+createPoint(34.110272	,-117.482894),
+createPoint(34.110498	,-117.48291),
+createPoint(34.111045	,-117.484023),
+createPoint(34.111708	,-117.484076),
+createPoint(34.11272	,-117.483356),
+createPoint(34.112962	,-117.482583),
+createPoint(34.112861	,-117.482433),
+createPoint(34.114375	,-117.481394)];
+
+//TARGET DISTRIBUTION CENTER #3807	
+var w31 = [createPoint(34.153036	,-117.42465),
+createPoint(34.157389	,-117.424653),
+createPoint(34.157385	,-117.419462),
+createPoint(34.15083	,-117.41946),
+createPoint(34.150825	,-117.423959),
+createPoint(34.153063	,-117.423956)];
+
+//TRIMODAL DISTRIBUTION	
+var w32 = [createPoint(33.831884	,-118.238031),
+createPoint(33.831988	,-118.238012),
+createPoint(33.832192	,-118.23796),
+createPoint(33.834101	,-118.237251),
+createPoint(33.834085	,-118.234313),
+createPoint(33.833674	,-118.234415),
+createPoint(33.83367	,-118.23541),
+createPoint(33.831903	,-118.236024)];
+
+//TRIMODAL/CITY DIST	
+var w33 = [createPoint(33.820375	,-118.248231),
+createPoint(33.820362	,-118.249057),
+createPoint(33.820531	,-118.249062),
+createPoint(33.820541	,-118.248895),
+createPoint(33.821344	,-118.248903),
+createPoint(33.821344	,-118.247955),
+createPoint(33.820733	,-118.247933)];
+
 
 
 var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
@@ -453,6 +894,11 @@ var fenceBoundary = [pierAFence,pierFFence,pierJFence,pierCFence,
                         apmTerminalFence, aboveApmFence,yusenFence,
                         westBasinFence,nextWestBasinFence, schoolFence];
 
+
+var warehouseBoundary = [w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,
+						 w11,w12,w13,w14,w15,w16,w17,w18,w19,w20,
+						 w21,w22,w23,w24,w25,w26,w27,w28,w29,w30,
+						 w31,w32,w33];
 /**
  *  Fence In Boundary
  */                    
@@ -502,6 +948,14 @@ function checkDataInFence(data) {
     }
   return false;
 }
+function checkDataInWarehouse(data) {
+	for(var i in fenceBoundary) {
+       var isIn = pointInPolygon(fenceBoundary[i], createPoint(data.latitude, data.longitude));
+       if(isIn)
+        return true;
+    }
+  return false;	
+}
 
 function pointInPolygon(listOfPoints, point)
 {
@@ -539,3 +993,8 @@ exports.checkDataInBoundary = checkDataInBoundary;
 
  console.log(checkDataInBoundary(createPoint(33.74610738,-118.24579195)));
  console.log(checkDataInFence(createPoint(33.74610738,-118.24579195)));
+
+
+ // -118.20716504 latitude: 33.79591907
+
+ console.log(checkDataInFence(createPoint(33.79591907, -118.20716504)));
