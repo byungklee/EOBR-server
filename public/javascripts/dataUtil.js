@@ -638,16 +638,21 @@ createPoint(33.862182 ,-118.011984)];
 
 
 //CES ,- CARSON 
-var w16 = [createPoint(33.821052  ,-118.245378),
-createPoint(33.82118  ,-118.245609),
-createPoint(33.821014 ,-118.245749),
-createPoint(33.821683 ,-118.246899),
-createPoint(33.824071 ,-118.244998),
-createPoint(33.823598 ,-118.244166),
-createPoint(33.823439 ,-118.24429),
-createPoint(33.823221 ,-118.243943),
-createPoint(33.822964 ,-118.244166),
-createPoint(33.822782 ,-118.243905)];
+var w16 = [createPoint(33.821,  -118.245315),
+createPoint(33.820002,  -118.246211),
+createPoint(33.820154,  -118.246498),
+createPoint(33.820248,  -118.246734),
+createPoint(33.820296,  -118.246903),
+createPoint(33.820328,  -118.247094),
+createPoint(33.820343,  -118.247294),
+createPoint(33.820354,  -118.2476),
+createPoint(33.820417,  -118.247945),
+createPoint(33.824071,  -118.244998),
+createPoint(33.823598,  -118.244166),
+createPoint(33.823439,  -118.24429),
+createPoint(33.823221,  -118.243943),
+createPoint(33.822964,  -118.244166),
+createPoint(33.822763,  -118.243847)];
 
 //FLOOR & DÉCOR 
 var w17 = [createPoint(33.817007  ,-118.260677),
@@ -718,14 +723,13 @@ createPoint(33.826267 ,-118.234566),
 createPoint(33.82625  ,-118.236236)];
 
 //NYK,-TARGET LONG BEACH  
-var w23 = [createPoint(33.832078  ,-118.229367),
-createPoint(33.832727 ,-118.229088),
-createPoint(33.833784 ,-118.228689),
-createPoint(33.834122 ,-118.228449),
-createPoint(33.835432 ,-118.227909),
-createPoint(33.835437 ,-118.22556),
-createPoint(33.83229  ,-118.22678)];
-
+var w23 = [createPoint(33.832068, -118.229508),
+createPoint(33.835368,  -118.228265),
+createPoint(33.835334,  -118.229414),
+createPoint(33.839069,  -118.227985),
+createPoint(33.839054,  -118.22423),
+createPoint(33.835437,  -118.22556),
+createPoint(33.83229  ,-118.22678)]
 
 //OFF DOCK USA  
 var w24 = [createPoint(33.818463  ,-118.230481),
@@ -787,7 +791,7 @@ createPoint(33.845564 ,-118.212064)];
 //no visit by any driver  
 var w27 = [createPoint(33.817079  ,-118.250792),
 createPoint(33.816169 ,-118.251556),
-//createPoint(33.81568  createPoint(33.81568
+createPoint(33.81568,  -118.251964),
 createPoint(33.815711 ,-118.252685),
 createPoint(33.817104 ,-118.252679)];
 
@@ -857,6 +861,11 @@ var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
                          tandc,john,pierF,pierG, harborScienic, 
                          harry,ferry,pico,navywayIn, navywayOut,
                          school, myHomeForTest];
+
+var boundaryPlaceNames = ["Yusen Terminal", "Total Terminals", "SSA Terminal", "Berth", "Outer Harbor",
+             "Eagle Marine Services, Ltd", "West Basin", "Long Beach Container Terminal", "International Transportation Service", "Pacific Container Terminal",
+             "Harry", "Seaside Transportation Service", "PIER C BERTH C60-C62", "APM IN", "APM OUT",
+              ""];
 
 var fenceBoundary = [pierAFence,pierFFence,pierJFence,pierCFence,
                         itsFence,ttiFence,stsFence,emsFence,
