@@ -308,6 +308,15 @@ function attachLocationOnFence(polygon, index) {
     infowindow.open(polygon.get('map'), polygon);
   });
 }
+function attachLocationOnWarehouse(polygon, index) {
+  var infowindow = new google.maps.InfoWindow({
+    content: warehouseNames[index]
+  });
+  google.maps.event.addListener(polygon, 'click', function(event) {
+    infowindow.setPosition(event.latLng);
+    infowindow.open(polygon.get('map'), polygon);
+  });
+}
 function setGeofence(path, index) {
   var polygon = new google.maps.Polygon({
    paths: path,
@@ -338,12 +347,12 @@ function setFence(path) {
    fillOpacity: 0.6
   });
   polygon.setMap(map);
-    attachLocationOnFence(polygon, "gatefence");
+   // attachLocationOnFence(polygon, "gatefence");
 
   fences.push(polygon);
 }
 
-function setWarehouse(path) {
+function setWarehouse(path, index) {
   var polygon = new google.maps.Polygon({
    paths: path,
      strokeColor: '#F3F3F3',
@@ -353,7 +362,7 @@ function setWarehouse(path) {
    fillOpacity: 0.6
   });
   polygon.setMap(map);
-    attachLocationOnFence(polygon, "warehouse");
+    attachLocationOnWarehouse(polygon, index);
 
   fences.push(polygon);
 }
@@ -407,7 +416,7 @@ function initialize()
     setFence(fenceAsGoogleMapPath[i]);
   }
   for(var i in warehouseAsGoogleMapPath) {
-    setWarehouse(warehouseAsGoogleMapPath[i]);
+    setWarehouse(warehouseAsGoogleMapPath[i], i);
   }
 
   /**

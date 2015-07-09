@@ -877,6 +877,15 @@ var warehouseBoundary = [w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,
              w31,w32,w33];
 
 
+var warehouseNames = ["ICTF RAIL", "ICE INT'L GROUP", "ACT FULFILLMENT", "ACT FULFILLMENT WHSE", "ADM WAREHOUSE", "AG FUMIGATION", 
+                      "AMERICOLD CARSON", "ATSI-LOS ANGELES","B N S F(COMMERCE)", "BAXTER HEALTHCARE CORP", "BDP EL SEGUNDO", 
+                      "BDP INT'L/NALCO", "BROOKVALE CARSON", "BROOKVALE CITY OF INDUSTRY", "BUENA PARK COLD STORAGE", 
+                      "CES - CARSON", "FLOOR & DÉCOR", "HARBOR WEIGHERS", "KOMAR ,MIRA LOMA", "METRO YARD", "NESTLES USA -DC 620",
+                      "NEW VIEW GIFTS @ OHL WHSE", "NYK-TARGET LONG BEACH", "OFF DOCK USA", "PRECISE DISTRIBUTION",
+                      "PRICE TRANSFER", "PRICE TRANSFER - CET","PRIME WEST WAREHOUSE","TARGET CENTER", "TARGET DISTRIBUTION - T553",
+                      "TARGET DISTRIBUTION CENTER #3807", "TRIMODAL DISTRIBUTION", "TRIMODAL/CITY DIST"];
+
+
 var preboundary = [];
 var boundaryAsGoogleMapPath = boundaryToGoogleMapBoundary(boundary);
 var fenceAsGoogleMapPath = boundaryToGoogleMapBoundary(fenceBoundary);
