@@ -200,6 +200,7 @@ function attachMessage(marker, index) {
     content: tripInfo
   });
 
+
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.open(marker.get('map'), marker);
   });
@@ -298,7 +299,25 @@ function loadNewTrip() {
   For stock area.
 */
 var polygons = [];
-function setGeofence(path) {
+function attachLocationOnFence(polygon, index) {
+  var infowindow = new google.maps.InfoWindow({
+    content: boundaryPlaceNames[index]
+  });
+  google.maps.event.addListener(polygon, 'click', function(event) {
+    infowindow.setPosition(event.latLng);
+    infowindow.open(polygon.get('map'), polygon);
+  });
+}
+function attachLocationOnWarehouse(polygon, index) {
+  var infowindow = new google.maps.InfoWindow({
+    content: warehouseNames[index]
+  });
+  google.maps.event.addListener(polygon, 'click', function(event) {
+    infowindow.setPosition(event.latLng);
+    infowindow.open(polygon.get('map'), polygon);
+  });
+}
+function setGeofence(path, index) {
   var polygon = new google.maps.Polygon({
    paths: path,
      strokeColor: '#FF0000',
@@ -308,7 +327,10 @@ function setGeofence(path) {
    fillOpacity: 0.6
   });
   polygon.setMap(map);
+    attachLocationOnFence(polygon, index);
+
   polygons.push(polygon);
+  return polygon;
 }
 
 /**
@@ -325,10 +347,12 @@ function setFence(path) {
    fillOpacity: 0.6
   });
   polygon.setMap(map);
+   // attachLocationOnFence(polygon, "gatefence");
+
   fences.push(polygon);
 }
 
-function setWarehouse(path) {
+function setWarehouse(path, index) {
   var polygon = new google.maps.Polygon({
    paths: path,
      strokeColor: '#F3F3F3',
@@ -338,6 +362,8 @@ function setWarehouse(path) {
    fillOpacity: 0.6
   });
   polygon.setMap(map);
+    attachLocationOnWarehouse(polygon, index);
+
   fences.push(polygon);
 }
 
@@ -384,13 +410,13 @@ function initialize()
   };
   map=new google.maps.Map(document.getElementById("map_display"),mapProp);
   for(var i in boundaryAsGoogleMapPath) {
-      setGeofence(boundaryAsGoogleMapPath[i]);
+      setGeofence(boundaryAsGoogleMapPath[i], i);
   }
   for(var i in fenceAsGoogleMapPath) {
     setFence(fenceAsGoogleMapPath[i]);
   }
   for(var i in warehouseAsGoogleMapPath) {
-    setWarehouse(warehouseAsGoogleMapPath[i]);
+    setWarehouse(warehouseAsGoogleMapPath[i], i);
   }
 
   /**
