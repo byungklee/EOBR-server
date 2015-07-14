@@ -1,6 +1,6 @@
 <div class="row">
-	<div class="col-md-6">
-		<div class="col-md-6 edge">
+	<div class="col-md-8">
+		<div class="col-md-5 edge">
 			<div class="table-responsive">
 			<h2>Trip List</h2>
 				<div class="parentTbl">
@@ -42,7 +42,7 @@
 			</table> --}}
 			</div>
 		</div>
-		<div class="col-md-6 edge">
+		<div class="col-md-7 edge">
 			<h2>Trip Data</h2>
 			<div class="table-responsive">
 				<div class="parentTbl">
@@ -55,6 +55,7 @@
 				              <th>Date</th>
 				              <th>Time</th>
 				              <th>Type</th>
+				              <th>Dist.</th>
 				            </tr>
 				          </table>
 				        </div>
@@ -82,12 +83,12 @@
 				</tbody>
 			</table> --}}
 			</div>
-
+			<div id="total_distance"></div>
 		  	<button type="button" onclick="setAllMarkers(true)" class="marginTop">Select All</button>
 		  	<button type="button" onclick="setAllMarkers(false)" class="marginTop">Deselect All</button>
 		</div>
 	</div>
-	 <div class="col-md-6">
+	 <div class="col-md-4">
 	 	<h2>Map</h2>
 		<div id="panel">
       		<input onclick="startAnimation();" type="button" value="Play">

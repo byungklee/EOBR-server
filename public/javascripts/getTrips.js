@@ -4,6 +4,9 @@ var markerSelectedCounter = 0; //Counter of selected markers.
 var tripSelectedIndex = -1;
 var previousTemp = null;
 
+var distanceData = [];
+var totalDistance;
+
 /**
  * 	On document ready, load trip lists and set clickable.
  */
@@ -32,9 +35,34 @@ function selectData(event) {
 	var index = $(this). parent().index();
 }
 
+function getDistanceFromLatLonInM(lat1,lon1,lat2,lon2) {
+  var R = 6371000; // Radius of the earth in km
+  var dLat = deg2rad(lat2-lat1);  // deg2rad below
+  var dLon = deg2rad(lon2-lon1); 
+  var a = 
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2)
+    ; 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI/180)
+}
+
+
 function loadTripAjax(truck_id, trip_id) {
 	$.getJSON('/trips/tripDetail?truck_id=' + truck_id + '&trip_id=' + trip_id, function(data) {
 		tripData = data;
+		totalDistance  = 0;
+		for(var index = 0;index < data.length-1;index++) {
+			distanceData[index] = getDistanceFromLatLonInM(tripData[index].latitude, tripData[index].longitude,
+				tripData[index+1].latitude, tripData[index+1].longitude);
+			totalDistance += distanceData[index];
+		}
 
 		/*
 		people.sort(function(a, b) {
@@ -45,6 +73,7 @@ function loadTripAjax(truck_id, trip_id) {
 			return a.id > b.id ? 1 : ( a.id < b. id ? - 1: 0 );
 		});
 		var tableContent ='';
+		var index =0;
 		$.each(tripData, function() {
 			var timeJson = JSON.parse(this.time);
 			var date = timeJson.month + '-' + timeJson.day + '-' + timeJson.year;
@@ -55,9 +84,12 @@ function loadTripAjax(truck_id, trip_id) {
 		//	tableContent += '<td>' + this.id + '</td>';
 			tableContent += '<td>' + time + '</td>';
 			tableContent += '<td>' + this.type+ '</td>';
+			tableContent += '<td>' + (distanceData[index] != undefined ? distanceData[index++].toFixed(2):"") + ' M' +'</td>';
 			tableContent += '</tr>';
 
 		});
+		var totalString = totalDistance != undefined ? "Total Distance = " + totalDistance.toFixed(2) + " M" : "";
+		$('#total_distance').text(totalString);
 
 		/**
 		 *	Allows multiple selection by click and drag.
