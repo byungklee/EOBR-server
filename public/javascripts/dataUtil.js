@@ -939,7 +939,7 @@ var w41 = [
 createPoint(33.866463,	-118.159793),
 createPoint(33.866509,	-118.159048),
 createPoint(33.867157,	-118.159008),
-createPoint(33.86713	,-118.155708),
+createPoint(33.86713,	-118.155708),
 createPoint(33.866101,	-118.15571),
 createPoint(33.866099,	-118.159777)
 ];
@@ -989,8 +989,8 @@ var fenceBoundary = [pierAFence,pierFFence,pierJFence,pierCFence,
 var warehouseBoundary = [w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,
              w11,w12,w13,w14,w15,w16,w17,w18,w19,w20,
              w21,w22,w23,w24,w25,w26,w27,w28,w29,w30,
-             w31,w32,w33,w34,w35,w37,w38,w39,w40,w41,
-             w42,w43];
+             w31,w32,w33,w34,w35,w36,w37,w38,w39,w40,
+             w41,w42,w43];
 
 
 var warehouseNames = ["ICTF RAIL", "ICE INT'L GROUP", "ACT FULFILLMENT", "ACT FULFILLMENT WHSE", "ADM WAREHOUSE", "AG FUMIGATION", 
