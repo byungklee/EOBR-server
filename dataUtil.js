@@ -899,6 +899,119 @@ createPoint(33.821344	,-118.248903),
 createPoint(33.821344	,-118.247955),
 createPoint(33.820733	,-118.247933)];
 
+//California Cartage Express	
+var w34 = [
+createPoint(33.790422,	-118.226161),
+createPoint(33.791759,	-118.230154),
+createPoint(33.793933,	-118.228967),
+createPoint(33.803662,	-118.227069),
+createPoint(33.804354,	-118.227062),
+createPoint(33.805719,	-118.227394),
+createPoint(33.804493,	-118.222958),
+createPoint(33.804332,	-118.222218),
+createPoint(33.804246,	-118.221538),
+createPoint(33.802823,	-118.221942),
+createPoint(33.792132,	-118.225738)
+];
+
+// Timberland	
+var w35 = [
+createPoint(34.060301,	-117.568725),
+createPoint(34.060751,	-117.568009),
+createPoint(34.060991,	-117.567417),
+createPoint(34.061144,	-117.566864),
+createPoint(34.061184,	-117.565634),
+createPoint(34.057831,	-117.565647),
+createPoint(34.057857,	-117.567441),
+createPoint(34.058443,	-117.567551),
+createPoint(34.059081,	-117.567806),
+createPoint(34.059772,	-117.568247)
+];
+
+//Prime Source Building Products	
+var w36 = [
+createPoint(33.91189, -118.042497),
+createPoint(33.913378,	-118.042481),
+createPoint(33.913385,	-118.039741),
+createPoint(33.913161,	-118.039774),
+createPoint(33.911923,	-118.040287)
+];
+
+//HUDD - CAL CARTAGE YARD	
+var w37 = [
+createPoint(33.786113,	-118.22881),
+createPoint(33.786662,	-118.228507),
+createPoint(33.790004,	-118.227275),
+createPoint(33.789807,	-118.226267),
+createPoint(33.788274,	-118.226459),
+createPoint(33.787922,	-118.226589),
+createPoint(33.787599,	-118.226738),
+createPoint(33.78734,	-118.226883),
+createPoint(33.787075,	-118.22714),
+createPoint(33.786735,	-118.227521),
+createPoint(33.786419,	-118.228016)
+];
+
+
+//MS INTERNATIONAL	
+var w38 = [
+createPoint(33.821075,	-117.859626),
+createPoint(33.822493,	-117.859639),
+createPoint(33.822535,	-117.856499),
+createPoint(33.821108,	-117.856509)
+];
+
+// CSL EXPRESS LINE	
+var w39 = [
+createPoint(33.872008,	-118.20819),
+createPoint(33.872513,	-118.208185),
+createPoint(33.872516,	-118.207152),
+createPoint(33.872005,	-118.206991)
+];
+
+//Vinotemp Internationa	
+var w40 = [
+createPoint(33.870894,	-118.20808),
+createPoint(33.871812,	-118.208082),
+createPoint(33.871834,	-118.20696),
+createPoint(33.870945,	-118.20669)
+];
+
+//Container Freight Express	
+var w41 = [
+createPoint(33.866463,	-118.159793),
+createPoint(33.866509,	-118.159048),
+createPoint(33.867157,	-118.159008),
+createPoint(33.86713	,-118.155708),
+createPoint(33.866101,	-118.15571),
+createPoint(33.866099,	-118.159777)
+];
+
+//Roxy Trading	
+var w42 = [
+createPoint(34.05951,	-117.793208),
+createPoint(34.061104,	-117.793214),
+createPoint(34.061218,	-117.791565),
+createPoint(34.059572,	-117.791569)
+];
+
+
+
+//California Multimodal Inc	
+var w43 = [
+createPoint(33.800092,	-118.245983),
+createPoint(33.80018,	-118.244279),
+createPoint(33.799917,	-118.243776),
+createPoint(33.7996,	-118.243404),
+createPoint(33.796572,	-118.240851),
+createPoint(33.795874,	-118.241293),
+createPoint(33.795724,	-118.245641)
+];
+
+
+
+
+
 
 
 var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
@@ -914,9 +1027,10 @@ var fenceBoundary = [pierAFence,pierFFence,pierJFence,pierCFence,
 
 
 var warehouseBoundary = [w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,
-						 w11,w12,w13,w14,w15,w16,w17,w18,w19,w20,
-						 w21,w22,w23,w24,w25,w26,w27,w28,w29,w30,
-						 w31,w32,w33];
+             w11,w12,w13,w14,w15,w16,w17,w18,w19,w20,
+             w21,w22,w23,w24,w25,w26,w27,w28,w29,w30,
+             w31,w32,w33,w34,w35,w37,w38,w39,w40,w41,
+             w42,w43];
 /**
  *  Fence In Boundary
  */                    
