@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
-
+ 
 MongoClient.connect("mongodb://localhost:27017/eobrDb", function(err, db) {
   if(err) { return console.dir(err); }
   database = db;
@@ -19,7 +19,8 @@ function addTrips(someObject) {
 //Return an array of the distinct values of the field ord_dt from the 
 //documents in the orders collection where the price is greater than 10
 function query() {
-
+	var collection = database.collection("trips");
+	collection.find()
 }
 
 exports.add = add;

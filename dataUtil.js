@@ -1008,12 +1008,6 @@ createPoint(33.795874,	-118.241293),
 createPoint(33.795724,	-118.245641)
 ];
 
-
-
-
-
-
-
 var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
                          tandc,john,pierF,pierG, harborScienic, 
                          harry,ferry,pico,navywayIn, navywayOut,
@@ -1031,28 +1025,6 @@ var warehouseBoundary = [w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,
              w21,w22,w23,w24,w25,w26,w27,w28,w29,w30,
              w31,w32,w33,w34,w35,w36,w37,w38,w39,w40,
              w41,w42,w43];
-/**
- *  Fence In Boundary
- */                    
-
-// function pointsToGoogleMapPath(points) {
-//     var temp = [];
-//     for(var i in points) {
-//         temp.push(new google.maps.LatLng(points[i].X, points[i].Y));
-//     }
-//     return temp;
-// }
-
-// function boundaryToGooleMapBoundary(boundary) {
-//     var temp = [];
-//     for(var i in boundary) {
-//         temp.push(pointsToGoogleMapPath(boundary[i]));
-//     }
-//     return temp;
-// }
-
-// var boundaryAsGoogleMapPath =boundaryToGooleMapBoundary(boundary);
-// console.log(boundaryAsGoogleMapPath);
 
 /**
  *  Create a point of X,Y pair.
@@ -1089,6 +1061,9 @@ function checkDataInWarehouse(data) {
   return false;	
 }
 
+/**
+ *	Ray-Casting Algorithm that finds a point on a polygon
+ */
 function pointInPolygon(listOfPoints, point)
 {
     var j = listOfPoints.length - 1;
@@ -1099,7 +1074,6 @@ function pointInPolygon(listOfPoints, point)
         if (listOfPoints[i].Y < point.Y && listOfPoints[j].Y >= point.Y ||
             listOfPoints[j].Y < point.Y && listOfPoints[i].Y >= point.Y)
         {
-        	//console.log("Checkin deno: " + listOfPoints[j].Y - listOfPoints[i].Y);
         	/**
         	 *     A - X1 		  X2-X1
         	 *    ________  =  _______
@@ -1109,8 +1083,6 @@ function pointInPolygon(listOfPoints, point)
             if (listOfPoints[i].X +
                 (point.Y - listOfPoints[i].Y)/(listOfPoints[j].Y - listOfPoints[i].Y)*(listOfPoints[j].X - listOfPoints[i].X) < point.X)
             {
-          //  	console.log("intersect: x1: " + listOfPoints[i].X + " Ty: " + point.Y + 
-          //  		" y1: " + listOfPoints[i].Y  + " y2: " + listOfPoints[j].Y + " x2: " + listOfPoints[j].X);
                 oddNodes = !oddNodes;
             }
         }
@@ -1120,13 +1092,6 @@ function pointInPolygon(listOfPoints, point)
     return oddNodes;
 }
 
+
 exports.checkDataInFence = checkDataInFence;
 exports.checkDataInBoundary = checkDataInBoundary;
-
- console.log(checkDataInBoundary(createPoint(33.74610738,-118.24579195)));
- console.log(checkDataInFence(createPoint(33.74610738,-118.24579195)));
-
-
- // -118.20716504 latitude: 33.79591907
-
- console.log(checkDataInFence(createPoint(33.79591907, -118.20716504)));

@@ -335,7 +335,6 @@ createPoint( 33.742162, -118.254006),
 createPoint( 33.742770, -118.254317)
 ];
 
-//Berths 401-406
 //APM Terminals
 // 2500 Navy Way
 // Terminal Island, CA 90731
@@ -350,7 +349,6 @@ createPoint( 33.723411, -118.252008),
 createPoint( 33.723291, -118.252156),
 createPoint( 33.722799, -118.253820)
 ];
-
 
 var westBasinFence = [
 createPoint( 33.756158, -118.289156),
@@ -965,13 +963,6 @@ createPoint(33.795874,	-118.241293),
 createPoint(33.795724,	-118.245641)
 ];
 
-
-
-
-
-
-
-
 var boundary =[seaSide, seaSideFwy, terminalIsland,berth,eastChan,
                          tandc,john,pierF,pierG, harborScienic, 
                          harry,ferry,pico,navywayIn, navywayOut,
@@ -1002,8 +993,7 @@ var warehouseNames = ["ICTF RAIL", "ICE INT'L GROUP", "ACT FULFILLMENT", "ACT FU
                       "TARGET DISTRIBUTION CENTER #3807", "TRIMODAL DISTRIBUTION", "TRIMODAL/CITY DIST",
                       "California Cartage Express","Timberland", "Prime Source Building Products", "HUDD - CAL CARTAGE YARD",
 					  "MS INTERNATIONAL", "CSL EXPRESS LINE", "Vinotemp Internationa", "Container Freight Express", "Roxy Trading",
-					  "California Multimodal Inc"                   
-
+					  "California Multimodal Inc"       
                       ];
 
 
