@@ -1053,8 +1053,8 @@ function checkDataInFence(data) {
   return false;
 }
 function checkDataInWarehouse(data) {
-	for(var i in fenceBoundary) {
-       var isIn = pointInPolygon(fenceBoundary[i], createPoint(data.latitude, data.longitude));
+	for(var i in warehouseBoundary) {
+       var isIn = pointInPolygon(warehouseBoundary[i], createPoint(data.latitude, data.longitude));
        if(isIn)
         return true;
     }
@@ -1095,3 +1095,4 @@ function pointInPolygon(listOfPoints, point)
 
 exports.checkDataInFence = checkDataInFence;
 exports.checkDataInBoundary = checkDataInBoundary;
+

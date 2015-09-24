@@ -13,7 +13,6 @@ var STATE_OUTSIDE = 0;
 var STATE_FENCE_IN = 1;
 var STATE_GATE_IN = 2;
 var STATE_WAREHOUSE_IN = 3;
-var STATE_WAREHOUSE_OUT = 4;
 var router_isIn = {};
 var router_states = {};
 var DEBUG = true;
@@ -110,6 +109,8 @@ router.post('/add', function(req,res) {
           jsonbody.record.type = 'fenceIn';
           router_states[truck_id] = STATE_FENCE_IN;
         }
+      } else if(router_states[truck_id] == STATE_WAREHOUSE_IN) {
+
       }
     }
 
@@ -187,7 +188,8 @@ function sortData(db,trip_id) {
        * Make all geofence cases to running.
        */
       for(var i in items) {
-        if(items[i].type == "fenceOut" || items[i].type == "fenceIn" || items[i].type == "gateIn") {
+        if(items[i].type == "fenceOut" || items[i].type == "fenceIn" || items[i].type == "gateIn" ||
+          items[i].type == "warehouseIn" || items[i].type == "warehouseOut") {
           items[i].type = "Running";
           db.collection('trips').update({id: items[i].id, truck_id: items[i].truck_id, trip_id:items[i].trip_id},
                {$set: {type:items[i].type}},{upsert:true}, function(err,result){if(!err) print("updated!")});

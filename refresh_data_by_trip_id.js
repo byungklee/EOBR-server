@@ -7,28 +7,56 @@ var STATE_FENCE_IN = 1;
 var STATE_GATE_IN = 2;
 var STATE_WAREHOUSE_IN = 3;
 
+var truck_ids = [
+"0c:48:85:e9:b7:4c",
+"0c:48:85:ce:ee:b6",
+"58:3f:54:c0:f7:fa",
+"64:89:9a:75:bc:7a",
+"0c:48:85:be:3d:00"];
+
 MongoClient.connect("mongodb://localhost:27017/eobrdb", function(err, dbb) {
   if(err) { return console.dir(err); }
   db = dbb;
-  refresh();
+  for(var i = 20150625; i < 20150629;i++) {
+    for(var j = 0; j < 5; j++) {
+      console.log("Trip_id: " + i + " " + "truck_ids: " + truck_ids[j]);
+      refresh(i,truck_ids[j]);
+    }  
+  }
+ // refresh();
+ // for(var i = 20150609; i < 20150625; i++) {
+ //  refresh(i, "0c:48:85:ce:ee:b6");
+ // }
+// refresh(20150609, "0c:48:85:ce:ee:b6");
+ //refresh(20150609, "0c:48:85:e9:b7:4c");
 });
 
-function refresh() {
+// 0c:48:85:e9:b7:4c
+// 0c:48:85:ce:ee:b6
+// 58:3f:54:c0:f7:fa
+// 64:89:9a:75:bc:7a
+// 0c:48:85:be:3d:00
+
+
+function refresh(trip,truck) {
 
     var existRecord;
     //print(existRecord);
     //print("Query by " + jsonbody.record[0].trip_id);
 
     /**
-     * Retrieve all the data with the same trip_id sorte by id.
+     * Retrieve all the data with the same trip_id sorte bsy id.
      */
     var dataList= [];
-    db.collection('trips').find({trip_id: 20150518},{"sort":"id"}).toArray(function (err,items) {
+    db.collection('trips').find({trip_id: trip, truck_id: truck },{"sort":"id"}).toArray(function (err,items) {
       /**
        * Inside Callback after retrieving all the data,
        * Make all geofence cases to running.
        */
-
+       console.log(items);
+       if(items.length == 0) {
+        return;
+       }
       for(var i in items) {
         if(items[i].type == "fenceOut" || items[i].type == "fenceIn" || items[i].type == "gateIn") {
           items[i].type = "Running";
@@ -37,7 +65,6 @@ function refresh() {
         }
       }
 
-      console.log(items[1]);
       console.log("");
       console.log("");
       //print("calling trip: " + items);
@@ -49,13 +76,13 @@ function refresh() {
        */
       var tripState = 0;
       if(existRecord != null) {
-         if(dataUtil.checkDataInBoundary(existRecord[0])) {
+         if(!dataUtil.checkDataInBoundary(existRecord[0])) {
             tripState = 0;
          } else {
             tripState = 2;
          }
       }
-
+     // console.log("Init STATE " + tripState);
      
       for(var i in existRecord) {
         
